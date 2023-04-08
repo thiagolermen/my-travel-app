@@ -1,0 +1,418 @@
+body, html{
+    font-family: 'Roboto', sans-serif;
+    height: 100%; 
+    background-image: url("../assets/background-london.jpg");
+    background-position: center; /* Center the image */
+    background-color: #000000;
+}
+
+footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+  
+footer p {
+    margin-bottom: .25rem;
+}
+
+#header{
+    width: 100%;
+    transition: background ease-out 0.2s;
+}
+
+
+#mytravel-navbar{
+    background-color: var(--primary);
+    width: 100%;
+    transition: background ease-out 0.2s;
+}
+
+
+#header.active {
+    position: fixed;
+    background: #fff;
+    box-shadow: 0 0 30px 0 rgba(116,131,151,0.8);
+    z-index: 9999;
+}
+  
+#header .navbar-collapse {
+    width: auto;
+}
+
+#header .navbar-brand{
+    color: var(--light);
+}
+
+#header .nav-link {
+    text-transform: uppercase;
+    font-weight: 500;
+    padding-left: 0;
+    padding-right: 0;
+    color: var(--light);
+    border-bottom: solid 4px transparent;
+}
+
+#header .nav-link:hover {
+    color: var(--grey);
+}
+
+#bg{
+    
+    background-color: rgba(255, 255, 255, 0.0); /* Used if the image is unavailable */
+    background-position: center; /* Center the image */
+    background-repeat:repeat;
+    background-size: cover; /* Resize the background image to cover the entire container */
+
+}
+
+.vertical-center {
+    display: table;
+    margin: 0 auto;
+    margin-top: 7%;
+  }
+
+
+#bg > div > div.container > img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#bg > div > div.input-group.mb-3 > div > ul > li > a{
+    text-decoration: none;
+    color: var(--grey);
+  }
+
+#bg > div > div.input-group.mb-3 > div > ul > li > a:hover{
+    text-decoration: none;
+    color: var(--black);
+}
+
+#main-form{
+    width: 50%; /* Can be in percentage also. */
+    height: auto;
+    margin: 0 auto;
+    padding: 2%;
+    position: relative;
+}
+
+#btnOneway, #btnRoundTrip{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.navbar-toggler-icon{
+    color: var(--grey);
+}
+
+#me .nav-link{
+    text-transform: uppercase;
+    font-weight: 500;
+    padding-left: 0;
+    padding-right: 0;
+    color: var(--light);
+    border-bottom: solid 4px transparent;
+}
+
+#me .nav-link:hover {
+    color: var(--light);
+    text-decoration: underline;
+}
+
+
+.album-bg{
+    background-color: rgba(116,131,151,0.8);
+    padding: 5px;
+}
+
+.block{
+    background-color: var(--light);
+}
+
+.card-img-top{
+    width: 100%;
+    height: 60%;
+}
+
+.card{
+    height: 100%;
+}
+
+.card-body{
+    min-height: 30%;
+    max-height: 20%;
+    margin-bottom: 4%;
+}
+
+.card-btn{
+    position: absolute;
+    left: 5%;
+    bottom: 4%;
+}
+
+.jumbotron {
+    padding-top: var(--jumbotron-padding-y);
+    padding-bottom: var(--jumbotron-padding-y);
+    margin-bottom: 0;
+    background-color:transparent;
+}
+
+.jumbotron p:last-child {
+    margin-bottom: 0;
+  }
+  
+.jumbotron-heading {
+    font-weight: 300;
+}
+  
+.jumbotron .container {
+    max-width: 40rem;
+}
+
+.btn-primary {
+    margin-bottom: 1%;
+    color: var(--light);
+    background-color: var(--primary);
+    border-color: var(--primary); /*set the color you want here*/
+}
+
+.btn-primary:hover {
+    margin-bottom: 1%;
+    color: var(--light);
+    background-color: var(--ternary);
+    border-color: var(--ternary); /*set the color you want here*/
+}
+
+.btn-outline-secondary {
+    margin-bottom: 1%;
+    color: var(--primary-dark);
+    background-color: var(--light);
+    border-color: var(--light); /*set the color you want here*/
+}
+
+.btn-outline-secondary:hover, .btn-outline-secondary:checked, .btn-outline-secondary:focus, .btn-outline-secondary:active, .btn-outline-secondary.active, .open>.dropdown-toggle.btn-outline-secondary {
+    color: var(--light);
+    background-color: var(--primary);
+    border-color: var(--primary); /*set the color you want here*/
+}
+
+.navlink-separator{
+    text-transform: uppercase;
+    font-weight: 500;
+    padding-left: 0;
+    padding-right: 0;
+    color: var(--light);
+    border-bottom: solid 4px transparent;
+    padding: 10px;
+}
+
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(116,131,151,0.8);; }
+
+.wrapper {
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+.wrapper form {
+    padding: 30px 50px;
+}
+
+.wrapper form .form-group {
+    padding-bottom: .5rem;
+}
+
+.wrapper form .option {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    display: block;
+}
+
+.wrapper form .option input {
+    display: none;
+}
+
+.wrapper form .checkmark {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    height: 17px;
+    width: 17px;
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 50%;
+}
+
+.wrapper form .option input:checked~.checkmark:after {
+    display: block;
+    background-color: var(--primary);
+}
+
+.wrapper form .option .checkmark:after {
+    content: "";
+    width: 7px;
+    height: 7px;
+    display: block;
+    border-radius: 50%;
+    background-color: var(--primary);
+    position: absolute;
+    top: 48%;
+    left: 52%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out 0s;
+}
+
+.wrapper form .option:hover input[type="radio"]~.checkmark {
+    background-color: var(--primary);
+}
+
+.wrapper form .option input[type="radio"]:checked~.checkmark {
+    background-color: var(--primary);
+    color: var(--primary);
+    transition: 300ms ease-in-out 0s;
+}
+
+.wrapper form .option input[type="radio"]:checked~.checkmark:after {
+    transform: translate(-50%, -50%) scale(1);
+    color: var(--primary);
+    background-color: var(--primary);
+}
+
+.wrapper form a {
+    color: var(--primary);
+}
+
+.wrapper form .form-control {
+    outline: none;
+    border: none;
+}
+
+.wrapper form .form-control:focus {
+    box-shadow: none;
+}
+
+.wrapper form input[type="text"]:focus::placeholder {
+    color: transparent
+}
+
+input[type="date"] {
+    cursor: pointer;
+}
+
+.wrapper form .label::after {
+    position: absolute;
+    /* background-color: #fff; */
+    top: 5px;
+    left: 0px;
+    font-size: 0.9rem;
+    margin: 0rem 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08rem;
+    font-weight: 600;
+    color: var(--primary);
+    transition: all .2s ease-in-out;
+    transform: scale(0);
+}
+
+.wrapper form .label#from::after {
+    content: 'From';
+}
+
+.wrapper form .label#to::after {
+    content: 'To';
+}
+
+.wrapper form .label#depart::after {
+    content: 'Depart Date';
+}
+
+.wrapper form .label#return::after {
+    content: 'Return Date';
+}
+
+.wrapper form .label#psngr::after {
+    content: 'Traveller(s)';
+}
+
+.wrapper form input[type="text"]:focus~.label::after {
+    top: -15px;
+    left: 0px;
+    transform: scale(1);
+}
+
+.wrapper form input[type="date"]:focus~.label::after {
+    top: -15px;
+    left: 0px;
+    transform: scale(1);
+}
+
+/* Margin */
+.margin {
+    margin: 2rem 0rem;
+}
+
+::selection{
+    color: #fff;
+    background: #664AFF;
+}
+
+.searchInput .resultBox{
+    position: absolute;
+    padding: 0;
+    pointer-events: none;
+    max-height: 250px;
+    overflow-y:scroll;
+    background-color: #fff;
+}
+
+.searchInput.active .resultBox{
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.resultBox li{
+    list-style: none;
+    padding: 8px 12px;
+    display: none;
+    width: 100%;
+    cursor: default;
+    border-radius: 3px;
+    height: 30%;
+}
+
+.searchInput.active .resultBox li{
+    display: block;
+}
+.resultBox li:hover{
+    background: #efefef;
+}
+
+.searchInput .icon{
+position: absolute;
+right: 0px;
+top: 0px;
+height: 55px;
+width: 55px;
+text-align: center;
+line-height: 55px;
+font-size: 20px;
+color: #644bff;
+cursor: pointer;
+}
+
+/* Media Queries */
+@media(max-width: 575.5px) {
+    .wrapper {
+        margin: 10px;
+    }
+
+    .wrapper form {
+        padding: 20px;
+    }
+
+    .margin {
+        margin: .2rem 0rem;
+    }
+}
