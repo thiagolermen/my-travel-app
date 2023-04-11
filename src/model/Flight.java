@@ -23,6 +23,7 @@ public class Flight {
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="flight")
     Collection<Passenger> listPassengers;
 	
+	
 	private LocalDate departureDate;
 	private LocalDate arrivalDate;
 	private LocalTime departureTime;

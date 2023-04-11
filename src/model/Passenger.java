@@ -12,6 +12,9 @@ public class Passenger {
 	@ManyToOne
 	Flight flight;
 	
+	@OneToOne
+	Ticket ticket;
+	
 	private String firstName;
 	private String lastName;
 	private String passportNumber;

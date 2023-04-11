@@ -10,8 +10,11 @@ public class Airport {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int airportId;
 	
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="airport")
-	Collection<Flight> listFlights;
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="departureAirport")
+	Collection<Flight> listDepartureFlights;
+	
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="arrivalAirport")
+	Collection<Flight> listArrivalFlights;
 	
 	private String airportName;
 

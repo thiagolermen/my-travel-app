@@ -173,6 +173,7 @@ footer p {
     color: var(--light);
     background-color: var(--primary);
     border-color: var(--primary); /*set the color you want here*/
+    width: 100%;
 }
 
 .btn-primary:hover {
