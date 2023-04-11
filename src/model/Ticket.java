@@ -19,6 +19,14 @@ public class Ticket {
 	String seatNumber;
 	
 	Double price;
+	
+	Meal meal;
+
+	int extraLuggage;
+	
+	int transportFromAirport;
+	
+	boolean paid;
 
 	public String getSeatNumber() {
 		return seatNumber;

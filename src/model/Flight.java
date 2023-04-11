@@ -16,9 +16,9 @@ public class Flight {
 	@ManyToOne
     Aircraft aircraft;
 	@ManyToOne
-	Airport airport;
+	Airport departureAirport;
 	@ManyToOne
-	int arrivalAirportId;
+	Airport arrivalAirport;
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="flight")
     Collection<Passenger> listPassengers;

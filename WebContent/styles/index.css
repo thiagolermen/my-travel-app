@@ -20,7 +20,6 @@ footer p {
     transition: background ease-out 0.2s;
 }
 
-
 #mytravel-navbar{
     background-color: var(--primary);
     width: 100%;
@@ -201,7 +200,7 @@ footer p {
     font-weight: 500;
     padding-left: 0;
     padding-right: 0;
-    color: var(--light);
+    color: var(--grey);
     border-bottom: solid 4px transparent;
     padding: 10px;
 }
@@ -210,8 +209,7 @@ footer p {
 .box-shadow { box-shadow: 0 .25rem .75rem rgba(116,131,151,0.8);; }
 
 .wrapper {
-    max-width: 800px;
-    margin: 50px auto;
+    max-width: 100%;
 }
 
 .wrapper form {
@@ -223,10 +221,7 @@ footer p {
 }
 
 .wrapper form .option {
-    position: relative;
-    padding-left: 25px;
     cursor: pointer;
-    display: block;
 }
 
 .wrapper form .option input {
@@ -234,58 +229,47 @@ footer p {
 }
 
 .wrapper form .checkmark {
-    position: absolute;
-    top: 4px;
-    left: 0;
-    height: 17px;
-    width: 17px;
-    background-color: var(--primary);
-    border: 1px solid var(--primary);
-    border-radius: 50%;
+    background-color: var(--light);
 }
 
 .wrapper form .option input:checked~.checkmark:after {
     display: block;
-    background-color: var(--primary);
 }
 
 .wrapper form .option .checkmark:after {
-    content: "";
-    width: 7px;
-    height: 7px;
-    display: block;
-    border-radius: 50%;
     background-color: var(--primary);
-    position: absolute;
-    top: 48%;
-    left: 52%;
-    transform: translate(-50%, -50%) scale(0);
-    transition: 200ms ease-in-out 0s;
+    border-color: var(--primary);
 }
 
 .wrapper form .option:hover input[type="radio"]~.checkmark {
     background-color: var(--primary);
+    border-color: var(--primary);
 }
 
 .wrapper form .option input[type="radio"]:checked~.checkmark {
-    background-color: var(--primary);
-    color: var(--primary);
-    transition: 300ms ease-in-out 0s;
+    background: var(--primary);
+    color: var(--light);
+    border-color: var(--primary);
 }
 
 .wrapper form .option input[type="radio"]:checked~.checkmark:after {
-    transform: translate(-50%, -50%) scale(1);
-    color: var(--primary);
-    background-color: var(--primary);
+    color: var(--light);
+    border-color: var(--primary);
 }
 
 .wrapper form a {
-    color: var(--primary);
+    color: #333;
+}
+
+.all-forms {
+    background-color: rgba(255, 255, 255,0.3);
+    padding: 0%;
 }
 
 .wrapper form .form-control {
     outline: none;
     border: none;
+    background-color: rgba(255, 255, 255, 0.7)
 }
 
 .wrapper form .form-control:focus {
@@ -303,14 +287,14 @@ input[type="date"] {
 .wrapper form .label::after {
     position: absolute;
     /* background-color: #fff; */
-    top: 5px;
-    left: 0px;
+    top: 10%;
+    left: 10%;
     font-size: 0.9rem;
-    margin: 0rem 0.4rem;
+    /* margin: 0rem 0.4rem; */
     text-transform: uppercase;
     letter-spacing: 0.08rem;
     font-weight: 600;
-    color: var(--primary);
+    color: var(--light);
     transition: all .2s ease-in-out;
     transform: scale(0);
 }
@@ -336,13 +320,13 @@ input[type="date"] {
 }
 
 .wrapper form input[type="text"]:focus~.label::after {
-    top: -15px;
-    left: 0px;
+    top: 10%;
+    left: 10%;
     transform: scale(1);
 }
 
 .wrapper form input[type="date"]:focus~.label::after {
-    top: -15px;
+    top: -5px;
     left: 0px;
     transform: scale(1);
 }
@@ -352,54 +336,19 @@ input[type="date"] {
     margin: 2rem 0rem;
 }
 
-::selection{
-    color: #fff;
-    background: #664AFF;
-}
+/* Media Queries */
+@media(max-width: 575.5px) {
+    .wrapper {
+        margin: 10px;
+    }
 
-.searchInput .resultBox{
-    position: absolute;
-    padding: 0;
-    pointer-events: none;
-    max-height: 250px;
-    overflow-y:scroll;
-    background-color: #fff;
-}
+    .wrapper form {
+        padding: 20px;
+    }
 
-.searchInput.active .resultBox{
-    padding: 10px 8px;
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.resultBox li{
-    list-style: none;
-    padding: 8px 12px;
-    display: none;
-    width: 100%;
-    cursor: default;
-    border-radius: 3px;
-    height: 30%;
-}
-
-.searchInput.active .resultBox li{
-    display: block;
-}
-.resultBox li:hover{
-    background: #efefef;
-}
-
-.searchInput .icon{
-position: absolute;
-right: 0px;
-top: 0px;
-height: 55px;
-width: 55px;
-text-align: center;
-line-height: 55px;
-font-size: 20px;
-color: #644bff;
-cursor: pointer;
+    .margin {
+        margin: .2rem 0rem;
+    }
 }
 
 /* Media Queries */

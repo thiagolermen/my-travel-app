@@ -8,7 +8,13 @@
         
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
         
+        <class>model.Aircraft</class>
+        <class>model.Airport</class>
         <class>model.Flight</class>
+        <class>model.Passenger</class>
+        <class>model.Reservation</class>
+        <class>model.Ticket</class>
+        <class>model.User</class>
         
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
