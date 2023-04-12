@@ -24,12 +24,21 @@ public class Facade {
 	@POST
 	@Path("/searchflight")
     @Consumes({ "application/json" })
+	@Produces({ "application/json" })
 	public Preliminary searchFlight(Preliminary p) {
 		p.setDepartureDate(LocalDate.parse(p.getDepartureDateString().subSequence(0, 10), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		if (p.getArrivalDateString() != null) {			
 			p.setArrivalDate(LocalDate.parse(p.getArrivalDateString().subSequence(0, 10), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		}
 		return p;
+	}
+
+	@POST
+	@Path("/submitlogin")
+    @Consumes({ "application/json" })
+	@Produces({ "application/json" })
+	public User submitLogin(User p) {
+		Person p = em.find(Person.class, as.getPersonId());
 	}
 
 }

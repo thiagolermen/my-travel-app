@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br" id="regi">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="../styles/main.css" />
+	
+	<!-- IMPORT ANGULAR JS 1.4.8-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <title>MyTravel - Register</title> 
+    
+    <body id="body-register"> 
+        <div ng-app="loginApp" ng-controller="loginCtrl" >
+            <!--HEADER-->
+            <div id="header-register">
+                <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(0, 0, 0, 0.05);">
+                    <a class="navbar-brand">
+                        <a class="nav-link active" href="../index.html">
+                            <img class="card-img-top" style="width: 15%; margin-left: 10%" src="../assets/logo-white-my-travel.png" alt="Card image cap">
+                        </a>
+                    </a>
+                </nav>
+            </div>
+
+        <!-- MAIN BODY -->
+        <main role="main">
+        <!-- FORM WITH LOGO + REGISTER -->
+        <form action="#" id="main-register" name="mainForm">
+            <div class="container">
+                <div class="container" style="margin-bottom: 5%;">
+                    <img class="vertical-center" src="../assets/logo-white-my-travel.png" href="#" alt="main logo" style="max-width: 100%; height: auto; width: auto\9; /* ie8 */">
+                </div>
+                <div ng-show="activeLoginDiv" class="register-box">
+                    
+                    <h2>Register</h2>
+                    <form style="text-align: center;">
+                        <div class="user-box">
+                            <input type="text" name="" required="">
+                            <label>Email</label>
+                        </div>
+                        <div class="user-box">
+                            <input type="text" name="" required="">
+                            <label>First name</label>
+                        </div>
+                        <div class="user-box">
+                            <input type="text" name="" required="">
+                            <label>Last Name</label>
+                        </div>
+                        <div class="user-box">
+                            <input type="password" name="" required="">
+                            <label>Password</label>
+                        </div>
+                        <a href="#">Register</a>
+                    </form>
+                    </div>
+                </div>
+        </main>
+        </div>
+        </body>
+
+        <!-- JS -->
+        <script>
+        function initVars(scope) {
+        	scope.user = new Object();
+        	scope.preliminary = new Object();
+        	
+        	scope.data = {
+        		nbPassengersOptions: [
+        			"1",
+        			"2",
+        			"3",
+        			"4",
+        			"5"
+        		]
+        	};
+        }
+        function initView(scope) {
+        	
+        }
+        
+        function searchFlight(scope, http) {
+        	scope.preliminary.oneWay = Boolean(scope.preliminary.oneWay)
+        	http.post("rest/searchflight", scope.preliminary).then(function(response) {
+    			if (response.status == 200) console.log("Success on adding seasrch information"); 
+    			else console.log("Error on adding search information");
+    		});
+        }
+        
+        
+        var app = angular.module('homeApp', []);
+        app.controller('homeCtrl', function($scope,$http) {
+        	initVars($scope);
+         	initView($scope);
+            //$scope.doClick=function(button) {click(button,$scope,$http);}
+            $scope.doSearchFlight=function() {searchFlight($scope,$http);}
+        });
+        </script>
+        
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"
+        ></script>
+        <script src="../scripts/bootstrap.min.js"></script>
+    </body>
+</html>

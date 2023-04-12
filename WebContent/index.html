@@ -12,7 +12,7 @@
 
     <title>MyTravel - Home</title> 
     
-    <body> 
+    <body id="body-home"> 
         <div ng-app="homeApp" ng-controller="homeCtrl" >
             <!--HEADER-->
             <div id="header">
@@ -23,20 +23,56 @@
                         </a>
                     </a>
                     <div class="collapse navbar-collapse d-lg-flex justify-content-end" style="margin-right: 5%" id="navbarNav">
-                        <ul class="navbar-nav" id="about">
+                        <ul ng-show="!isLoggedin" class="navbar-nav" id="about">
                             <li class="nav-item" style="margin-top: 3.5%;">
                                 <span class="material-symbols-outlined" style="color: var(--light);">person</span>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="">Sign in or Register</a>
+                                <a ng-click="doClick('login')" class="nav-link active" href="">Sign in or Register</a>
+                            </li>
+                        </ul>
+
+                        <ul ng-show="isLoggedin" class="navbar-nav" id="about">
+                            <li class="nav-item" style="margin-top: 2.7%;">
+                                <a class="nav-link active" href="">My Tickets</a>
+                            </li>
+                            <li class="nav-item" style="margin-top: 2.7%;">
+                                <a class="nav-link active" href="">My Account</a>
                             </li>
                         </ul>
                     </div>
                 </nav>
+                <div ng-show="activeLoginDiv" class="login-box" >
+                    <h2>Login</h2>
+                    <form name="loginForm" style="text-align: center;" >
+                        <div class="user-box">
+                            <input type="text" ng-model="user.email" ng-required="true" required>
+                            <label>Email</label>
+                        </div>
+                        <div class="user-box">
+                            <input type="password" ng-model="user.password" ng-required="true" required>
+                            <label>Password</label>
+                        </div>
+                        <a ng-click="doClick('submit')">
+                            Submit
+                        </a>
+                        <a href="pages/register.html">
+                            Register
+                        </a>
+                    </form>
+                    <div class="alert alert-primary d-flex align-items-center" ng-show="loginForm.$error.required && activeLoginDiv" role="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
+                        <div>
+                          Please fill all the required fields.
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- MAIN BODY -->
-            <main  role="main" id="bg">
+            <main ng-click="doClick('main')" role="main" id="bg">
                 <div class="jumbotron vertical-center wrapper" id="search-main" style="width: 100%"> 
 
                     <!-- UPPER LEFT LOGO -->
@@ -51,7 +87,7 @@
                         <!-- ONE WAY - ROUND TRIP RADIO BUTTONS -->
                         <div class="form-group border-bottom d-flex align-items-center flex-wrap" >
                             <div class="option" >
-                                <input type="radio" ng-model="preliminary.oneWay" ng-value="true" ng-required="true" class="btn-check" name="oneWay" id="oneWay" autocomplete="off" checked>
+                                <input type="radio" ng-model="preliminary.oneWay" ng-value="true" ng-required="true" class="btn-check" name="oneWay" id="oneWay" autocomplete="off">
                                 <label class="btn btn-outline-secondary rounded-0 checkmark" for="oneWay">One way</label>
                             </div>
                             <div class="option">
@@ -91,11 +127,12 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group my-3">
-                            <button type="button" ng-click="doSearchFlight()" ng-disabled="mainForm.$error.required" class="btn btn-primary rounded-0 d-flex justify-content-center text-center p-3" style="background-color: var(--primary); border: none;">Search Flights</button>
+                        <div class="form-group my-3 ">
+                            <a class="btn-search" ng-click="doClick('search-flight')" href="#">Search Flights</a>
+                            <!-- <button type="button" ng-click="doClick('search-flight')" class="btn btn-primary rounded-0 d-flex justify-content-center text-center p-3">Search Flights</button> -->
                         </div>
                         
-                        <div class="alert alert-primary d-flex align-items-center" ng-show="mainForm.$error.required" role="alert">
+                        <div class="alert alert-primary d-flex align-items-center" ng-show="mainForm.$error.required && activeAlert" role="alert">
 						  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
 						    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
 						  </svg>
@@ -110,43 +147,7 @@
         </main>
 
         <!-- JS -->
-        <script>
-        function initVars(scope) {
-        	scope.user = new Object();
-        	scope.preliminary = new Object();
-        	
-        	scope.data = {
-        		nbPassengersOptions: [
-        			"1",
-        			"2",
-        			"3",
-        			"4",
-        			"5"
-        		]
-        	};
-        }
-        function initView(scope) {
-        	
-        }
-        
-        function searchFlight(scope, http) {
-        	scope.preliminary.oneWay = Boolean(scope.preliminary.oneWay)
-        	http.post("rest/searchflight", scope.preliminary).then(function(response) {
-    			if (response.status == 200) console.log("Success on adding seasrch information"); 
-    			else console.log("Error on adding search information");
-    		});
-        }
-        
-        
-        var app = angular.module('homeApp', []);
-        app.controller('homeCtrl', function($scope,$http) {
-        	initVars($scope);
-         	initView($scope);
-            //$scope.doClick=function(button) {click(button,$scope,$http);}
-            $scope.doSearchFlight=function() {searchFlight($scope,$http);}
-        });
-        </script>
-        
+        <script src="scripts/index.js"></script>
         <script
             src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
