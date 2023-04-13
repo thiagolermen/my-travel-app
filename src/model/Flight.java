@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
@@ -25,23 +26,32 @@ public class Flight {
     Collection<Passenger> listPassengers;
 	
 	
-	private LocalDate departureDate;
-	private LocalDate arrivalDate;
+	private Date departureDate;
+	private Date arrivalDate;
 	private LocalTime departureTime;
 	private LocalTime arrivalTime;
 	private Double price;
 	
 	
-	public LocalDate getDepartureDate() {
+	public Flight(Aircraft aircraft, Airport departureAirport, Airport arrivalAirport, Date departureDate, Date arrivalDate) {
+		super();
+		this.aircraft = aircraft;
+		this.departureAirport = departureAirport;
+		this.arrivalAirport = arrivalAirport;
+		this.departureDate = departureDate;
+		this.arrivalDate = arrivalDate;
+	}
+	
+	public Date getDepartureDate() {
 		return departureDate;
 	}
-	public void setDepartureDate(LocalDate departureDate) {
+	public void setDepartureDate(Date departureDate) {
 		this.departureDate = departureDate;
 	}
-	public LocalDate getArrivalDate() {
+	public Date getArrivalDate() {
 		return arrivalDate;
 	}
-	public void setArrivalDate(LocalDate arrivalDate) {
+	public void setArrivalDate(Date arrivalDate) {
 		this.arrivalDate = arrivalDate;
 	}
 	public LocalTime getDepartureTime() {

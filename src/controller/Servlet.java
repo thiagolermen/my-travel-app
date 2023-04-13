@@ -1,4 +1,5 @@
 package controller;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.ejb.EJB;
@@ -8,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.parser.ParseException;
+
+import model.DatabaseInit;
 import model.Facade;
 
 /**
@@ -18,12 +22,14 @@ public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	Facade home;
+	DatabaseInit database;
 	
     /**
      * @see HttpServlet#HttpServlet()
      */
     public Servlet() {
         super();
+        
     }
 
 	/**

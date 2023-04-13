@@ -16,13 +16,29 @@ public class Aircraft {
 	Collection<Flight> listFlights;
 	
 	private String aircraftName;
+	@Column(unique=true)
+	private String aircraftIcaoCode;
 	private int aircraftCapacity;
+
+	public Aircraft(String aircraftName, String icaoCode, int aircraftCapacity) {
+		super();
+		this.aircraftName = aircraftName;
+		this.aircraftIcaoCode = icaoCode;
+		this.aircraftCapacity = aircraftCapacity;
+	}
 	
 	public String getAircraftName() {
 		return aircraftName;
 	}
 	public void setAircraftName(String aircraftName) {
 		this.aircraftName = aircraftName;
+	}
+	public String getAircraftIcaoCode() {
+		return aircraftIcaoCode;
+	}
+
+	public void setAircraftIcaoCode(String aircraftIcaoCode) {
+		this.aircraftIcaoCode = aircraftIcaoCode;
 	}
 	public int getAircraftCapacity() {
 		return aircraftCapacity;

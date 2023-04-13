@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Airport {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	int airportId;
+	private int airportId;
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="departureAirport")
 	Collection<Flight> listDepartureFlights;
@@ -18,6 +18,15 @@ public class Airport {
 	Collection<Flight> listArrivalFlights;
 	
 	private String airportName;
+	@Column(unique=true)
+	private String airportIataCode;
+	private String airportCountry;	
+	
+	Airport(String airportName, String airportIataCode, String airportCountry){
+		this.airportName = airportName;
+		this.airportIataCode = airportIataCode;
+		this.airportCountry = airportCountry;
+	}
 
 	public String getAirportName() {
 		return airportName;
@@ -25,6 +34,22 @@ public class Airport {
 
 	public void setAirportName(String airportName) {
 		this.airportName = airportName;
+	}
+
+	public String getAirportIataCode() {
+		return airportIataCode;
+	}
+
+	public void setAirportIataCode(String airportIataCode) {
+		this.airportIataCode = airportIataCode;
+	}
+
+	public String getAirportCountry() {
+		return airportCountry;
+	}
+
+	public void setAirportCountry(String airportCountry) {
+		this.airportCountry = airportCountry;
 	}
 	
 	
