@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "airports")
 public class Airport {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

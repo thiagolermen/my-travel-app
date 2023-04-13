@@ -1,26 +1,30 @@
 package model;
 
+import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
 
 import javax.persistence.*;
 
 @Entity
-public class User {
+@Table(name = "users")
+public class User implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	int userId;
+	private Integer userId;
 	
 	@OneToMany
 	Collection<Reservation> listReservation;
-	
+
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
-	private LocalDate birthDate;
-	private boolean isAdmin;
+	private String birthDateString;
+	private Date brithDate;
+	private boolean isAdmin = false;
 	
 	public String getFirstName() {
 		return firstName;
@@ -46,17 +50,23 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public LocalDate getBirthDate() {
-		return birthDate;
+	public String getBirthDateString() {
+		return birthDateString;
 	}
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDateString(String birthDateString) {
+		this.birthDateString = birthDateString;
 	}
 	public boolean isAdmin() {
 		return isAdmin;
 	}
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+	public Date getBrithDate() {
+		return brithDate;
+	}
+	public void setBrithDate(Date brithDate) {
+		this.brithDate = brithDate;
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.Collection;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "flights")
 public class Flight {
 	
 	@Id
