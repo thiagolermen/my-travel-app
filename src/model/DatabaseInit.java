@@ -91,6 +91,7 @@ public class DatabaseInit {
 				// Flight data
 				String departureAirportIataCode = (String) departure.get("iataCode");
 				String arrivalAirportIataCode = (String) arrival.get("iataCode");
+				float price = (float) getRandomNumberInRange(500, 1500);
 				
 				// Check if there's available data
 				if (aircraftIcaoCode.isEmpty() || departureAirportIataCode.isEmpty() || arrivalAirportIataCode.isEmpty()) continue;
@@ -104,7 +105,7 @@ public class DatabaseInit {
 				Date date_initial = new Date(System.currentTimeMillis());
 				Date date_final = Date.valueOf("2024-12-15");
 				Date date = between(date_initial, date_final);
-				em.persist(new Flight(query_aircraft.get(0), query_departure_airport.get(0), query_arrival_airport.get(0), date, date));
+				em.persist(new Flight(query_aircraft.get(0), query_departure_airport.get(0), query_arrival_airport.get(0), date, date, price));
 			
 			}
 		} catch (FileNotFoundException e) {

@@ -22,7 +22,7 @@ function initView(scope) {
 }
                     
 function loadAllAirports(scope,http){
-	console.log("AQUI")
+	var result;
 	http.get("rest/listairports").then(function(response) {
 		if (response.status == 200 || response.status == 204) {	
 			scope.airports = response.data.map(function (state) {
@@ -47,14 +47,13 @@ function createFilterFor(query) {
 }
 
 function queryAirport (query, scope, q, timeout) {
-	console.log(scope.airports)
 	var results = query ? scope.airports.filter(createFilterFor(query)) : scope.airports;
 	var deferred = q.defer();
 	timeout(function () { deferred.resolve(results); }, Math.random() * 1000, false);
 	return deferred.promise;
 }
 
-function click(button, scope, http){
+function click(button, scope, http, window){
     switch (button) {
         case "login" :
             scope.activeLoginDiv = true;
@@ -75,25 +74,28 @@ function click(button, scope, http){
             scope.activeAlert = true;
             if(!scope.mainForm.$error.required){
                 scope.preliminary.oneWay = Boolean(scope.preliminary.oneWay)
-                console.log(scope.preliminary);
                 http.get("rest/searchflight", {params: scope.preliminary}).then(function(response) {
                     if (response.status == 200 || response.status == 204) {
                     	console.log("Success on adding search information"); 
                     	scope.flights = response.data;
                     	console.log(scope.flights);
+                        localStorage.setItem('flights', JSON.stringify(scope.flights));
+                        window.location.href = "pages/list_flights.html";
                     }
                     else console.log("Error on adding search information");
                 });
             }
+
             break;
     }
 }
 
 var app = angular.module('homeApp', ['ngMaterial', 'ngMessages']);
-app.controller('homeCtrl', function($scope,$http, $q, $timeout) {
+app.controller('homeCtrl', function($scope,$http, $q, $timeout, $window) {
     initVars($scope);
     initView($scope);
-    loadAllAirports($scope, $http);
-    $scope.doClick=function(button) {click(button, $scope,$http);}
+    loadAllAirports($scope,$http)
+    console.log($scope.airports);
+    $scope.doClick=function(button) {click(button, $scope,$http, $window);}
     $scope.doQueryAirport = function(query) {return queryAirport(query, $scope, $q, $timeout)}
 });

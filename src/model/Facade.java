@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -53,19 +54,28 @@ public class Facade {
 //			p.setArrivalDate(Date.valueOf(p.getArrivalDateString().substring(0, 10)));
 //			Date departureDate = p.getDepartureDate();
 //			Date arrivalDate = p.getArrivalDate();
-			List<Flight> query_flights = em.createQuery(
-				    "SELECT f FROM Flight f " +
+			List<Object[]> query_results = em.createQuery(
+				    "SELECT f, dep, arr FROM Flight f " +
 				    "JOIN f.departureAirport dep " +
 				    "JOIN f.arrivalAirport arr " +
 				    "WHERE dep.airportIataCode = :departureAirportCode " +
 				    "AND arr.airportIataCode = :arrivalAirportCode "
 //				    "AND FUNCTION('DATE', f.departureDate) = FUNCTION('DATE', :departureDate);"
-				    ,Flight.class)
+				    ,Object[].class)
 				    .setParameter("departureAirportCode", departureAirport)
 				    .setParameter("arrivalAirportCode", arrivalAirport)
 //				    .setParameter("departureDate", departureDate)
 //				    .setParameter("arrivalDate", arrivalDate)
 				    .getResultList();
+			List<Flight> query_flights = new ArrayList<>();
+			for (Object[] result : query_results) {
+			    Flight flight = (Flight) result[0];
+			    Airport depAirport = (Airport) result[1];
+			    Airport arrAirport = (Airport) result[2];
+			    flight.setDepartureAirport(depAirport);
+			    flight.setArrivalAirport(arrAirport);
+			    query_flights.add(flight);
+			}
 			return query_flights;
 		//}
 		//return null;

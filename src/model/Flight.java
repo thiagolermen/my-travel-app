@@ -29,19 +29,21 @@ public class Flight {
 	private Date arrivalDate;
 	private LocalTime departureTime;
 	private LocalTime arrivalTime;
-	private Double price;
+	@Column(precision=2, scale=2) 
+	private float price;
 	
 	public Flight(){
 		super();
 	}
 	
-	public Flight(Aircraft aircraft, Airport departureAirport, Airport arrivalAirport, Date departureDate, Date arrivalDate) {
+	public Flight(Aircraft aircraft, Airport departureAirport, Airport arrivalAirport, Date departureDate, Date arrivalDate, float price) {
 		super();
 		this.aircraft = aircraft;
 		this.departureAirport = departureAirport;
 		this.arrivalAirport = arrivalAirport;
 		this.departureDate = departureDate;
 		this.arrivalDate = arrivalDate;
+		this.price = price;
 	}
 	
 	public Date getDepartureDate() {
@@ -68,12 +70,37 @@ public class Flight {
 	public void setArrivalTime(LocalTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
-	public Double getPrice() {
+	public float getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
+
+	public Aircraft getAircraft() {
+		return aircraft;
+	}
+
+	public void setAircraft(Aircraft aircraft) {
+		this.aircraft = aircraft;
+	}
+
+	public Airport getDepartureAirport() {
+		return departureAirport;
+	}
+
+	public void setDepartureAirport(Airport departureAirport) {
+		this.departureAirport = departureAirport;
+	}
+
+	public Airport getArrivalAirport() {
+		return arrivalAirport;
+	}
+
+	public void setArrivalAirport(Airport arrivalAirport) {
+		this.arrivalAirport = arrivalAirport;
+	}
+	
 	
 	
 }

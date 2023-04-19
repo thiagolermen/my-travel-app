@@ -13,7 +13,7 @@
     <title>MyTravel - Flights</title> 
     
     <body id="body-list"> 
-        <div ng-app="registerApp" ng-controller="registerCtrl" >
+        <div ng-app="listFlightsApp" ng-controller="listFlightsCtrl" >
             <!--HEADER-->
             <div id="header-list">
                 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary);">
@@ -29,32 +29,40 @@
         <main role="main">
         <!-- FORM WITH LOGO + REGISTER -->
         <div class="container" style="padding: 1%;">
-            <div class="me-auto" style="width: 60%;">
-                <ul ng-repeat="p in listPersons" class="list-group list-group-light flight-list">
+            <div class="me-auto" style="width: 70%;">
+                <ul ng-repeat="f in flights" class="list-group list-group-light flight-list">
                     <li class="list-group-item d-flex flight-item">
                         <div class="row align-items-start">
-                            <div class="col align-self-start">
-                              FLIGHT 1
-                            </div>
-                            <div class="col align-self-center">
+                        	<div class="col align-self-center">
                                 <div class="vstack gap-3">
                                     <div class="row align-items-start">
-                                        <h2>AE1</h2>
-                                        <h2>AE2</h2>
+                                        <h2 style="letter-spacing: 1px;">{{f.departureDate}}</h2>
+                                        <h2 style="letter-spacing: 1px;">{{f.arrivalDate}}</h2>
+                                        <h2 style="letter-spacing: 1px; font-size: 0.7vw">{{f.aircraft.aircraftName}}</h2>
                                     </div>
-                                    <div class="row align-items-start">
-                                        <h2>AE2</h2>
-                                        <h2>AE1</h2>
+                                </div>
+                            </div> 
+                            <div class="col align-self-center">
+                                <div class="vstack gap-3">
+                                    <div class="row align-items-start" style="flex-wrap: nowrap;">
+                                        <div class="col align-self-center"><h2>{{f.departureAirport.airportIataCode}}</h2></div>
+                                        <div class="col align-self-center"><span class="material-symbols-outlined">arrow_right</span></div>
+                                        <div class="col align-self-center"><h2>{{f.arrivalAirport.airportIataCode}}</h2></div>
+                                    </div>
+                                    <div class="row align-items-start" style="flex-wrap: nowrap;">
+                                        <div class="col align-self-center"><h2>{{f.arrivalAirport.airportIataCode}}</h2></div>
+                                        <div class="col align-self-center"><span class="material-symbols-outlined">arrow_right</span></div>
+                                        <div class="col align-self-center"><h2>{{f.departureAirport.airportIataCode}}</h2></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col align-self-center">
                                 <div class="vstack gap-3">
-                                    <h2>€ 00,00</h2>
+                                    <h2>€ {{f.price}}</h2>
                                     <a ng-click="" href="">BOOK FLIGHT</a>
                                 </div>
                             </div>
-                          </div>
+                    	</div>
                     </li>
                 </ul>
             </div>
@@ -64,7 +72,7 @@
         </body>
 
         <!-- JS -->
-        <script src="../scripts/index.js"></script>
+        <script src="../scripts/list_flights.js"></script>
         
         <script
             src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

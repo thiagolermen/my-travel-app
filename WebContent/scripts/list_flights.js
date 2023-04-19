@@ -1,4 +1,6 @@
-function initVars(scope) {
+function initVars(scope, window) {
+	scope.flights = JSON.parse(localStorage.getItem('flights'));
+	console.log(scope.flights);
 }
 function initView(scope) {
 }
@@ -10,9 +12,9 @@ function click(button, scope, http){
 }
 
 
-var app = angular.module('listApp', []);
-app.controller('listCtrl', function($scope,$http) {
-    initVars($scope);
+var app = angular.module('listFlightsApp', []);
+app.controller('listFlightsCtrl', function($scope,$http, $q, $timeout, $window) {
+    initVars($scope, $window);
     initView($scope);
-    $scope.doClick=function(button) {click(button, $scope,$http);}
+    //$scope.doClick=function(button) {click(button, $scope,$http);}
 });
