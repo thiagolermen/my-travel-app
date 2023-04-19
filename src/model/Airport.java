@@ -19,7 +19,7 @@ public class Airport {
 	
 	private String airportName;
 	@Column(unique=true)
-	private String airportIataCode;
+	String airportIataCode;
 	private String airportCountry;	
 	
 	public Airport(){

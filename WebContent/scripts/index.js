@@ -2,6 +2,7 @@ function initVars(scope) {
 	scope.user = new Object();
 	scope.preliminary = new Object();
 	scope.flights = new Object();
+	scope.airports = new Object();
 	
 	scope.data = {
 	    nbPassengersOptions: [
@@ -21,6 +22,7 @@ function initView(scope) {
 }
                     
 function loadAllAirports(scope,http){
+	console.log("AQUI")
 	http.get("rest/listairports").then(function(response) {
 		if (response.status == 200 || response.status == 204) {	
 			scope.airports = response.data.map(function (state) {
@@ -45,6 +47,7 @@ function createFilterFor(query) {
 }
 
 function queryAirport (query, scope, q, timeout) {
+	console.log(scope.airports)
 	var results = query ? scope.airports.filter(createFilterFor(query)) : scope.airports;
 	var deferred = q.defer();
 	timeout(function () { deferred.resolve(results); }, Math.random() * 1000, false);
@@ -72,7 +75,8 @@ function click(button, scope, http){
             scope.activeAlert = true;
             if(!scope.mainForm.$error.required){
                 scope.preliminary.oneWay = Boolean(scope.preliminary.oneWay)
-                http.get("rest/searchflight", scope.preliminary).then(function(response) {
+                console.log(scope.preliminary);
+                http.get("rest/searchflight", {params: scope.preliminary}).then(function(response) {
                     if (response.status == 200 || response.status == 204) {
                     	console.log("Success on adding search information"); 
                     	scope.flights = response.data;

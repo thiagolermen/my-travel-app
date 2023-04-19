@@ -21,11 +21,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 
 @Singleton
@@ -44,31 +46,29 @@ public class Facade {
 	
 	@GET
 	@Path("/searchflight")
-    @Consumes({ "application/json" })
 	@Produces({ "application/json" })
-	public List<Flight> searchFlight(Preliminary p) {
-		p.setDepartureDate(Date.valueOf(p.getDepartureDateString().substring(0, 10)));
-		if (p.getArrivalDateString() != null) {			
-			p.setArrivalDate(Date.valueOf(p.getArrivalDateString().substring(0, 10)));
-			String departureAirportCode = p.getDepartureAirport();
-			String arrivalAirportCode = p.getArrivalAirport();
-			Date departureDate = p.getDepartureDate();
-			Date arrivalDate = p.getArrivalDate();
+	public List<Flight> searchFlight(@QueryParam("departureAirport") String departureAirport, @QueryParam("arrivalAirport") String arrivalAirport,  @QueryParam("departureDate") String departureDate, @QueryParam("returnDate") String returnDate) {
+//		p.setDepartureDate(Date.valueOf(p.getDepartureDateString().substring(0, 10)));
+//		if (p.getArrivalDateString() != null) {			
+//			p.setArrivalDate(Date.valueOf(p.getArrivalDateString().substring(0, 10)));
+//			Date departureDate = p.getDepartureDate();
+//			Date arrivalDate = p.getArrivalDate();
 			List<Flight> query_flights = em.createQuery(
 				    "SELECT f FROM Flight f " +
 				    "JOIN f.departureAirport dep " +
 				    "JOIN f.arrivalAirport arr " +
-				    "WHERE dep.code = :departureAirportCode " +
-				    "AND arr.code = :arrivalAirportCode " +
-				    "AND FUNCTION('DATE', f.departureDate) = FUNCTION('DATE', :departureDate);", Flight.class)
-				    .setParameter("departureAirportCode", departureAirportCode)
-				    .setParameter("arrivalAirportCode", arrivalAirportCode)
-				    .setParameter("departureDate", departureDate)
-				    .setParameter("arrivalDate", arrivalDate)
+				    "WHERE dep.airportIataCode = :departureAirportCode " +
+				    "AND arr.airportIataCode = :arrivalAirportCode "
+//				    "AND FUNCTION('DATE', f.departureDate) = FUNCTION('DATE', :departureDate);"
+				    ,Flight.class)
+				    .setParameter("departureAirportCode", departureAirport)
+				    .setParameter("arrivalAirportCode", arrivalAirport)
+//				    .setParameter("departureDate", departureDate)
+//				    .setParameter("arrivalDate", arrivalDate)
 				    .getResultList();
 			return query_flights;
-		}
-		return null;
+		//}
+		//return null;
 	}
 
 	@POST
