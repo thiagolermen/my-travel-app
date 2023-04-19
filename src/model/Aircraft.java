@@ -19,6 +19,10 @@ public class Aircraft {
 	@Column(unique=true)
 	private String aircraftIcaoCode;
 	private int aircraftCapacity;
+	
+	public Aircraft(){
+		super();
+	}
 
 	public Aircraft(String aircraftName, String icaoCode, int aircraftCapacity) {
 		super();

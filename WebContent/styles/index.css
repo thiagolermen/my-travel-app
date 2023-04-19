@@ -217,6 +217,7 @@ footer p {
 
 .wrapper {
     max-width: 100%;
+    position: relative;
 }
 
 .wrapper form {
@@ -280,8 +281,9 @@ footer p {
 }
 
 .wrapper form input[type="text"]:focus::placeholder {
-    color: transparent
+    color: transparent;
 }
+
 
 input[type="date"] {
     cursor: pointer;
@@ -330,7 +332,7 @@ input[type="date"] {
     content: 'To';
 }
 
-.wrapper form .label#depart::after {
+.wrapper form .label#departureDate::after {
     content: 'Depart Date';
 }
 
@@ -348,9 +350,25 @@ input[type="date"] {
     transform: scale(1);
 }
 
+.md-autocomplete-suggestions-container {
+     width:100% !important;
+}
+
+.wrapper form input[type="search"]:focus~.label::after {
+    top: 10%;
+    left: 10%;
+    transform: scale(1);
+}
+
 .wrapper form input[type="date"]:focus~.label::after {
     top: -5px;
     left: 0px;
+    transform: scale(1);
+}
+
+.wrapper form md-autocomplete:focus~.label::after {
+    top: 10%;
+    left: 10%;
     transform: scale(1);
 }
 

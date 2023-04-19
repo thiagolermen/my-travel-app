@@ -37,6 +37,7 @@ public class DatabaseInit {
 	public void init() {
 		
 		JSONParser parser = new JSONParser();
+		int maxData = 1000;
 		
 		// Import airport data from JSON file
 		try {
@@ -72,7 +73,7 @@ public class DatabaseInit {
 			int counter = 0;
 			// Import flight information from JSON
 			for (Object f : flight){
-				if (counter == 2000) break;
+				if (counter == maxData) break;
 				counter++;
 				JSONObject flight_info = (JSONObject) f;
 

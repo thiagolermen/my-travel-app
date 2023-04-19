@@ -27,6 +27,10 @@ public class User implements Serializable{
 	private Date brithDate;
 	private boolean isAdmin = false;
 	
+	public User(){
+		super();
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}

@@ -24,14 +24,16 @@ public class Flight {
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="flight")
     Collection<Passenger> listPassengers;
-	
-	
+
 	private Date departureDate;
 	private Date arrivalDate;
 	private LocalTime departureTime;
 	private LocalTime arrivalTime;
 	private Double price;
 	
+	public Flight(){
+		super();
+	}
 	
 	public Flight(Aircraft aircraft, Airport departureAirport, Airport arrivalAirport, Date departureDate, Date arrivalDate) {
 		super();

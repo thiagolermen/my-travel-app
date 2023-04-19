@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -34,14 +35,40 @@ public class Facade {
 	@PersistenceContext
 	EntityManager em;
 	
-	@POST
+	@GET
+	@Path("/listairports")
+    @Produces({ "application/json" })
+	public List<Airport> listAirports() {
+		return em.createQuery("FROM Airport", Airport.class).getResultList();
+	}
+	
+	@GET
 	@Path("/searchflight")
     @Consumes({ "application/json" })
-	public void searchFlight(Preliminary p) {
-		p.setDepartureDate(LocalDate.parse(p.getDepartureDateString().subSequence(0, 10), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+	@Produces({ "application/json" })
+	public List<Flight> searchFlight(Preliminary p) {
+		p.setDepartureDate(Date.valueOf(p.getDepartureDateString().substring(0, 10)));
 		if (p.getArrivalDateString() != null) {			
-			p.setArrivalDate(LocalDate.parse(p.getArrivalDateString().subSequence(0, 10), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+			p.setArrivalDate(Date.valueOf(p.getArrivalDateString().substring(0, 10)));
+			String departureAirportCode = p.getDepartureAirport();
+			String arrivalAirportCode = p.getArrivalAirport();
+			Date departureDate = p.getDepartureDate();
+			Date arrivalDate = p.getArrivalDate();
+			List<Flight> query_flights = em.createQuery(
+				    "SELECT f FROM Flight f " +
+				    "JOIN f.departureAirport dep " +
+				    "JOIN f.arrivalAirport arr " +
+				    "WHERE dep.code = :departureAirportCode " +
+				    "AND arr.code = :arrivalAirportCode " +
+				    "AND FUNCTION('DATE', f.departureDate) = FUNCTION('DATE', :departureDate);", Flight.class)
+				    .setParameter("departureAirportCode", departureAirportCode)
+				    .setParameter("arrivalAirportCode", arrivalAirportCode)
+				    .setParameter("departureDate", departureDate)
+				    .setParameter("arrivalDate", arrivalDate)
+				    .getResultList();
+			return query_flights;
 		}
+		return null;
 	}
 
 	@POST

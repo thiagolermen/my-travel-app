@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 
 
@@ -11,8 +12,8 @@ public class Preliminary{
 	private String arrivalAirport;
 	private String departureDateString;
 	private String arrivalDateString;
-	private LocalDate departureDate;
-	private LocalDate arrivalDate;
+	private Date departureDate;
+	private Date arrivalDate;
 	private int nbPassengers;
 	private boolean oneWay;
 	private int flightId;
@@ -49,19 +50,19 @@ public class Preliminary{
 	}
 	
 
-	public LocalDate getDepartureDate() {
+	public Date getDepartureDate() {
 		return departureDate;
 	}
 
-	public void setDepartureDate(LocalDate departureDate) {
+	public void setDepartureDate(Date departureDate) {
 		this.departureDate = departureDate;
 	}
 
-	public LocalDate getArrivalDate() {
+	public Date getArrivalDate() {
 		return arrivalDate;
 	}
 
-	public void setArrivalDate(LocalDate arrivalDate) {
+	public void setArrivalDate(Date arrivalDate) {
 		this.arrivalDate = arrivalDate;
 	}
 

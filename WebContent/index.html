@@ -8,12 +8,16 @@
     <link rel="stylesheet" href="styles/main.css" />
 	
 	<!-- IMPORT ANGULAR JS 1.4.8-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 
     <title>MyTravel - Home</title> 
     
     <body id="body-home"> 
-        <div ng-app="homeApp" ng-controller="homeCtrl" >
+        <div ng-app="homeApp" ng-controller="homeCtrl">
             <!--HEADER-->
             <div id="header">
                 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(0, 0, 0, 0.05);">
@@ -73,74 +77,112 @@
             <!-- MAIN BODY -->
             <main ng-click="doClick('main')" role="main" id="bg">
                 <div class="jumbotron vertical-center wrapper" id="search-main" style="width: 100%"> 
-
+					<md-content class = "md-padding">
                     <!-- UPPER LEFT LOGO -->
-                    <div class="container">
-                        <img class="center" src="assets/logo-white-my-travel.png" href="#" alt="main logo" style="width: 60%;">
-                        <h2 class="center" style="color: var(--light); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-align: center; font-size: large;">Explore the world with ease</h2>
-                    </div>
-
-                    <!-- FORM WITH LOGO + FLIGHT BOOKING -->
-                    <form action="#" id="main-form" name="mainForm">
-
-                        <!-- ONE WAY - ROUND TRIP RADIO BUTTONS -->
-                        <div class="form-group border-bottom d-flex align-items-center flex-wrap" >
-                            <div class="option" >
-                                <input type="radio" ng-model="preliminary.oneWay" ng-value="true" ng-required="true" class="btn-check" name="oneWay" id="oneWay" autocomplete="off">
-                                <label class="btn btn-outline-secondary rounded-0 checkmark" for="oneWay">One way</label>
-                            </div>
-                            <div class="option">
-                                <input type="radio" ng-model="preliminary.oneWay" ng-value="false" ng-required="true" class="btn-check" name="roundTrip" id="roundTrip" autocomplete="off" checked>
-                                <label class="btn btn-outline-secondary rounded-0 checkmark" for="roundTrip">Round trip</label>
-                            </div>
-                        </div>
-                        
-                        <!-- MAIN FORM WITH FLIGHT SEARCH INFO -->
-                        <div class="form-group all-forms">
-                            <div class="form-group d-sm-flex" style="justify-content: space-between; margin-top: 1%;">
-                                <div class="form-group col-md-5">
-                                    <label for="departure" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Departure Airport</label>
-                                    <input type="text" ng-model="preliminary.departureAirport" ng-required="true" id="departure" required placeholder="From" class="form-control">
-                                </div>
-                                <div class="form-group col-md-5 ">
-                                    <label for="arrival" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Arrival Airport</label>
-                                    <input type="text" ng-model="preliminary.arrivalAirport" ng-required="!preliminary.oneWay" ng-disabled="preliminary.oneWay" id="arrival" required placeholder="To" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group d-sm-flex" style="justify-content: space-between;margin-top: 1%;" >
-                                <div class="form-group col-md-5">
-                                    <label for="departureDate" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Departure Date</label>
-                                    <input type="date" ng-bind="date | date:'MM/dd/yyyy'" ng-model="preliminary.departureDateString" ng-required="true" placeholder="Depart Date" class="form-control">
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label for="departureDate" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Return Date</label>
-                                    <input type="date" ng-bind="date | date:'MM/dd/yyyy'" ng-model="preliminary.arrivalDateString" ng-required="!preliminary.oneWay" ng-disabled="preliminary.oneWay" min="{{date | date:'MM/dd/yyyy'}}" max="12/25/2030" required placeholder="Return Date" class="form-control">
-                                </div>
-                            </div>
-                        
-                            <div class="form-group" style="justify-content: space-between;margin-top: 1%;">
-                                <label for="passengers" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Passengers</label>
-                                <select name="passengers" class="form-control" ng-required="true" ng-model="preliminary.nbPassengers" id="passengers">
-                                	<option ng-repeat="option in data.nbPassengersOptions" ng-value="{{option}}">{{option}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group my-3 ">
-                            <!--<a class="btn-search" ng-click="doClick('search-flight')" href="#">Search Flights</a>-->
-                            <button type="button" ng-click="doClick('search-flight')" class="btn btn-primary rounded-0 d-flex justify-content-center text-center p-3">Search Flights</button>
-                        </div>
-                        
-                        <div class="alert alert-primary d-flex align-items-center" ng-show="mainForm.$error.required && activeAlert" role="alert">
-						  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-						    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-						  </svg>
-						  <div>
-						    Please fill all the required fields.
-						  </div>
-						</div>
-                    </form>
-                    
+	                    <div class="container">
+	                        <img class="center" src="assets/logo-white-my-travel.png" href="#" alt="main logo" style="width: 60%;">
+	                        <h2 class="center" style="color: var(--light); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-align: center; font-size: large;">Explore the world with ease</h2>
+	                    </div>
+	
+	                    <!-- FORM WITH LOGO + FLIGHT BOOKING -->
+	                    <form action="#" ng-submit = "$event.preventDefault()" id="main-form" name="mainForm">
+	
+	                        <!-- ONE WAY - ROUND TRIP RADIO BUTTONS -->
+	                        <div class="form-group border-bottom d-flex align-items-center flex-wrap" >
+	                            <div class="option" >
+	                                <input type="radio" ng-model="preliminary.oneWay" ng-value="true" ng-required="true" class="btn-check" name="oneWay" id="oneWay" autocomplete="off">
+	                                <label class="btn btn-outline-secondary rounded-0 checkmark" for="oneWay">One way</label>
+	                            </div>
+	                            <div class="option">
+	                                <input type="radio" ng-model="preliminary.oneWay" ng-value="false" ng-required="true" class="btn-check" name="roundTrip" id="roundTrip" autocomplete="off" checked>
+	                                <label class="btn btn-outline-secondary rounded-0 checkmark" for="roundTrip">Round trip</label>
+	                            </div>
+	                        </div>
+	                        
+	                        <!-- MAIN FORM WITH FLIGHT SEARCH INFO -->
+	                        <div class="form-group all-forms">
+	                            <div class="form-group d-sm-flex" style="justify-content: space-between; margin-top: 1%;">
+	                                <!-- <md-input-container class="form-group col-md-5">
+	                                    
+	                                    <input type="text" ng-model="preliminary.departureAirport" ng-required="true" id="departure" required placeholder="From" class="form-control">
+	                                 -->
+	                                <div class="form-group col-md-5"  >
+	                                	<label for="departure" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Departure Airport</label>
+		                             
+		                                <md-autocomplete flex required
+								          md-no-cache="true"
+								          md-selected-item="preliminary.departureAirport"
+								          md-search-text="searchDeparture"
+								          md-items="item in doQueryAirport(searchDeparture)"
+								          md-item-text="item.display"
+								          md-dropdown-items="7">
+								          <md-item-template class="">
+						                     <span md-highlight-text = "searchDeparture">{{ item.display }}</span>
+						                  </md-item-template>
+								          <!-- <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+								            <div ng-message="required">You <b>must</b> have a favorite state.</div>
+								            <div ng-message="md-require-match">Please select an existing state.</div>
+								            <div ng-message="minlength">Your entry is not long enough.</div>
+								            <div ng-message="maxlength">Your entry is too long.</div>
+								          </div> -->
+								        </md-autocomplete>
+							        </div>
+	                                <div class="form-group col-md-5 ">
+	                                    <label for="arrival" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Arrival Airport</label>
+	                                    <md-autocomplete flex required
+								          md-no-cache="true"
+								          md-selected-item="preliminary.arrivalAirport"
+								          md-search-text="searchArrival"
+								          md-items="item in doQueryAirport(searchArrival)"
+								          md-item-text="item.display"
+								          md-clear-button="false">
+								          <md-item-template class="">
+						                     <span md-highlight-text = "searchArrival">{{ item.display }}</span>
+						                  </md-item-template>
+								          <!-- <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+								            <div ng-message="required">You <b>must</b> have a favorite state.</div>
+								            <div ng-message="md-require-match">Please select an existing state.</div>
+								            <div ng-message="minlength">Your entry is not long enough.</div>
+								            <div ng-message="maxlength">Your entry is too long.</div>
+								          </div> -->
+								        </md-autocomplete>
+	                                </div>
+	                                
+	                            </div>
+	
+	                            <div class="form-group d-sm-flex" style="justify-content: space-between;margin-top: 1%;" >
+	                                <div class="form-group col-md-5">
+	                                    <label for="departureDate" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Departure Date</label>
+	                                    <input type="date" ng-bind="date | date:'MM/dd/yyyy'" ng-model="preliminary.departureDateString" ng-required="true" placeholder="Depart Date" class="form-control">
+	                                </div>
+	                                <div class="form-group col-md-5">
+	                                    <label for="departureDate" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Return Date</label>
+	                                    <input type="date" ng-bind="date | date:'MM/dd/yyyy'" ng-model="preliminary.arrivalDateString" ng-required="!preliminary.oneWay" ng-disabled="preliminary.oneWay" min="{{date | date:'MM/dd/yyyy'}}" max="12/25/2030" required placeholder="Return Date" class="form-control">
+	                                </div>
+	                            </div>
+	                        
+	                            <div class="form-group" style="justify-content: space-between;margin-top: 1%;">
+	                                <label for="passengers" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Passengers</label>
+	                                <select name="passengers" class="form-control" ng-required="true" ng-model="preliminary.nbPassengers" id="passengers">
+	                                	<option ng-repeat="option in data.nbPassengersOptions" ng-value="{{option}}">{{option}}</option>
+	                                </select>
+	                            </div>
+	                        </div>
+	                        <div class="form-group my-3 ">
+	                            <!--<a class="btn-search" ng-click="doClick('search-flight')" href="#">Search Flights</a>-->
+	                            <button type="button" ng-click="doClick('search-flight')" routeLink="list_flights.html" class="btn btn-primary rounded-0 d-flex justify-content-center text-center p-3">Search Flights</button>
+	                        </div>
+	                        
+	                        <div class="alert alert-primary d-flex align-items-center" ng-show="mainForm.$error.required && activeAlert" role="alert">
+							  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+							    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+							  </svg>
+							  <div>
+							    Please fill all the required fields.
+							  </div>
+							</div>
+	                    </form>
+                    </md-content>
                 </div>
             </div>
         </main>

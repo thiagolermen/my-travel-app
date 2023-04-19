@@ -22,6 +22,10 @@ public class Airport {
 	private String airportIataCode;
 	private String airportCountry;	
 	
+	public Airport(){
+		super();
+	}
+	
 	Airport(String airportName, String airportIataCode, String airportCountry){
 		this.airportName = airportName;
 		this.airportIataCode = airportIataCode;
