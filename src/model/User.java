@@ -9,11 +9,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable{
+public class User{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer userId;
+	int userId;
 	
 	@OneToMany
 	Collection<Reservation> listReservation;
@@ -26,6 +26,17 @@ public class User implements Serializable{
 	private String birthDateString;
 	private Date brithDate;
 	private boolean isAdmin = false;
+	
+	public User(String email, String password){
+		this.email = email;
+		this.password = password;
+	}
+	
+	public User(String email, String password, boolean isAdmin){
+		this.email = email;
+		this.password = password;
+		this.isAdmin = isAdmin;
+	}
 	
 	public User(){
 		super();

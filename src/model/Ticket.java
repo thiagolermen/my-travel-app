@@ -19,7 +19,7 @@ public class Ticket {
 	
 	String seatNumber;
 	
-	Double price;
+	float price;
 	
 	Meal meal;
 
@@ -37,11 +37,11 @@ public class Ticket {
 		this.seatNumber = seatNumber;
 	}
 
-	public Double getPrice() {
+	public float getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 	

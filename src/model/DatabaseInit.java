@@ -41,6 +41,10 @@ public class DatabaseInit {
 		
 		// Import airport data from JSON file
 		try {
+			
+			// Initialize admin user
+			em.persist(new User("admin@admin", "admin", true));
+			
 			JSONArray a = (JSONArray) parser.parse(new FileReader(DATA_PATH + "/airports.json"));
 			for (Object o : a){
 				JSONObject airport = (JSONObject) o;

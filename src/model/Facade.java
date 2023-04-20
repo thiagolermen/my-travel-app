@@ -81,21 +81,12 @@ public class Facade {
 		//return null;
 	}
 
-	@POST
+	@GET
 	@Path("/loginauthentication")
-    @Consumes({ "application/json" })
-	public void loginAuthentication(User logged_user) {
-		try{
-			String email = logged_user.getEmail();
-			String password = logged_user.getPassword();
-            EntityTransaction entr=em.getTransaction();
-            entr.begin();
-			TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class);        
-			query.setParameter(1, email);
-			query.setParameter(2, password); 
-			User u = query.getSingleResult();
-		}catch(javax.persistence.NoResultException e){
-		}
+    @Produces({ "application/json" })
+	public boolean loginAuthentication(@QueryParam("email") String email, @QueryParam("password") String password) {
+		List<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class).setParameter("email", email).setParameter("password", password).getResultList();
+		return query.isEmpty();
 	}
 
 	@POST
@@ -104,6 +95,13 @@ public class Facade {
 	public void register(User user) {
 		user.setBrithDate(Date.valueOf(user.getBirthDateString().substring(0, 10)));
 		em.persist(user);
+	}
+	
+	@POST
+	@Path("/bookflight")
+    @Consumes({ "application/json" })
+	public void bookFlight(User user) {
+		
 	}
 
 }

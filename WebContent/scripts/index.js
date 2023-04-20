@@ -25,17 +25,20 @@ function loadAllAirports(scope,http){
 	var result;
 	http.get("rest/listairports").then(function(response) {
 		if (response.status == 200 || response.status == 204) {	
-			scope.airports = response.data.map(function (state) {
+			result = response.data.map(function (state) {
 		        return {
 		          value: state.airportCountry.toLowerCase(),
 		          display: state.airportCountry + " (" + state.airportIataCode + ")"
 		        };
 		      });
+			localStorage.setItem('airports', JSON.stringify(result));
 		} else {
-			scope.airports = []
+			result = []
+			localStorage.setItem('airports', JSON.stringify(result));
 			console.log("Failed to list airports.");
 		}
 	});
+	return result;
 }
 
 function createFilterFor(query) {
@@ -48,9 +51,11 @@ function createFilterFor(query) {
 
 function queryAirport (query, scope, q, timeout) {
 	var results = query ? scope.airports.filter(createFilterFor(query)) : scope.airports;
-	var deferred = q.defer();
-	timeout(function () { deferred.resolve(results); }, Math.random() * 1000, false);
-	return deferred.promise;
+	return results;
+//	console.log(results);
+//	var deferred = q.defer();
+//	timeout(function () { deferred.resolve(results); }, Math.random() * 1000, false);
+//	return deferred.promise;
 }
 
 function click(button, scope, http, window){
@@ -61,15 +66,24 @@ function click(button, scope, http, window){
         case "main" :
             scope.activeLoginDiv = false;
             break;
-//        case "submit" :
-//            scope.activeLoginAlert = true;
-//            if(scope.loginForm.$error.required){
-//                http.post("rest/loginauthentication", scope.user).then(function(response) {
-//                    if (response.status == 200) console.log("Success on logging in."); 
-//                    else console.log("Error logging in.");
-//                });
-//            }
-//            break;
+        case "submit" :
+            scope.activeLoginAlert = true;
+            if(!scope.loginForm.$error.required){
+                http.get("rest/loginauthentication", {params: scope.user}).then(function(response) {
+                    if (response.status == 200 && !response.data) {
+                    	console.log("Success on logging in.");
+                    	localStorage.setItem('user', JSON.stringify(scope.user));
+                    	localStorage.setItem('isLoggedIn', "true");
+                    } 
+                    else console.log("Error logging in.");
+                });
+            }
+            scope.isLoggedIn = Boolean(localStorage.getItem('isLoggedIn'));
+            scope.activeLoginDiv = !scope.isLoggedIn;
+            break;
+        case "register" :
+        	window.location.href = "pages/register.html";
+            break;
         case "search-flight" :
             scope.activeAlert = true;
             if(!scope.mainForm.$error.required){
@@ -92,10 +106,25 @@ function click(button, scope, http, window){
 
 var app = angular.module('homeApp', ['ngMaterial', 'ngMessages']);
 app.controller('homeCtrl', function($scope,$http, $q, $timeout, $window) {
+	localStorage.clear();
     initVars($scope);
     initView($scope);
-    loadAllAirports($scope,$http)
-    console.log($scope.airports);
-    $scope.doClick=function(button) {click(button, $scope,$http, $window);}
-    $scope.doQueryAirport = function(query) {return queryAirport(query, $scope, $q, $timeout)}
+    $http.get("rest/listairports").then(function(response) {
+    	var result;
+		if (response.status == 200 || response.status == 204) {	
+			result = response.data.map(function (state) {
+		        return {
+		          value: state.airportCountry.toLowerCase(),
+		          display: state.airportCountry + " (" + state.airportIataCode + ")"
+		        };
+		      });
+			$scope.airports = result;
+			$scope.doClick=function(button) {click(button, $scope,$http, $window);}
+		    $scope.doQueryAirport = function(query) {return queryAirport(query, $scope, $q, $timeout)}
+		} else {
+			result = []
+			localStorage.setItem('airports', JSON.stringify(result));
+			console.log("Failed to list airports.");
+		}
+	});
 });

@@ -22,7 +22,50 @@
                             <img class="card-img-top" style="width: 15%; margin-left: 10%" src="../assets/logo-white-my-travel.png" alt="Card image cap">
                         </a>
                     </a>
+                    
+                    <div class="collapse navbar-collapse d-lg-flex justify-content-end" style="margin-right: 5%" id="navbarNav">
+                        <ul ng-show="!isLoggedIn" class="navbar-nav" id="about">
+                            <li class="nav-item" style="margin-top: 3.5%;">
+                                <span class="material-symbols-outlined" style="color: var(--light);">person</span>
+                            </li>
+                            <li class="nav-item">
+                                <a ng-click="doClick('login')" class="nav-link active" href="">Sign in or Register</a>
+                            </li>
+                        </ul>
+
+                        <ul ng-show="isLoggedIn" class="navbar-nav" id="about">
+                            <li class="nav-item" style="margin-top: 2.7%;">
+                                <a class="nav-link active" href="">My Tickets</a>
+                            </li>
+                            <li class="nav-item" style="margin-top: 2.7%;">
+                                <a class="nav-link active" href="">My Account</a>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
+                <div ng-show="activeLoginDiv" class="login-box" >
+                    
+                    <h2>Login</h2>
+                    <div class="alert text-center" style="color:crimson; font-size: medium;" ng-show="loginForm.$error.required && activeLoginDiv && activeLoginAlert" role="alert">
+                        Please fill all the required fields.
+                    </div>
+                    <form name="loginForm" style="text-align: center;" >
+                        <div class="user-box">
+                            <input type="text" ng-model="user.email" ng-required="true" required>
+                            <label>Email</label>
+                        </div>
+                        <div class="user-box">
+                            <input type="password" ng-model="user.password" ng-required="true" required>
+                            <label>Password</label>
+                        </div>
+                        <div class="container">
+                            <button type="button" ng-click="doClick('submit')" class="btn btn-login">LOGIN</button>
+                            <button type="button" ng-click="doClick('register')" class="btn btn-login">REGISTER</button>
+                        </div>
+                    </form>
+                    
+                </div>
+
             </div>
 
         <!-- MAIN BODY -->
@@ -30,6 +73,15 @@
         <!-- FORM WITH LOGO + REGISTER -->
         <div class="container" style="padding: 1%;">
             <div class="me-auto" style="width: 70%;">
+            <div class="alert alert-primary d-flex align-items-center" ng-show="alertCreateAccount" role="alert">
+				  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+				    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+				  </svg>
+				  <div>
+				    Please log in or create account to continue booking.
+				  </div>
+				</div>
+				<br>
                 <ul ng-repeat="f in flights" class="list-group list-group-light flight-list">
                     <li class="list-group-item d-flex flight-item">
                         <div class="row align-items-start">
@@ -59,12 +111,13 @@
                             <div class="col align-self-center">
                                 <div class="vstack gap-3">
                                     <h2>€ {{f.price}}</h2>
-                                    <a ng-click="" href="">BOOK FLIGHT</a>
+                                    <a ng-click="doBook(f)" href="">BOOK FLIGHT</a>
                                 </div>
                             </div>
                     	</div>
                     </li>
                 </ul>
+                
             </div>
         </div>
             </main>

@@ -20,6 +20,14 @@ public class Passenger {
 	private String lastName;
 	private String passportNumber;
 	
+	public Passenger(String firstName, String lastName, String passportNumber) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.passportNumber = passportNumber;
+	}
+	public Passenger() {
+		super();
+	}
 	public String getFirstName() {
 		return firstName;
 	}

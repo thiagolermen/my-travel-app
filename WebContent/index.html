@@ -27,7 +27,7 @@
                         </a>
                     </a>
                     <div class="collapse navbar-collapse d-lg-flex justify-content-end" style="margin-right: 5%" id="navbarNav">
-                        <ul ng-show="!isLoggedin" class="navbar-nav" id="about">
+                        <ul ng-show="!isLoggedIn" class="navbar-nav" id="about">
                             <li class="nav-item" style="margin-top: 3.5%;">
                                 <span class="material-symbols-outlined" style="color: var(--light);">person</span>
                             </li>
@@ -36,7 +36,7 @@
                             </li>
                         </ul>
 
-                        <ul ng-show="isLoggedin" class="navbar-nav" id="about">
+                        <ul ng-show="isLoggedIn" class="navbar-nav" id="about">
                             <li class="nav-item" style="margin-top: 2.7%;">
                                 <a class="nav-link active" href="">My Tickets</a>
                             </li>
@@ -62,12 +62,8 @@
                             <label>Password</label>
                         </div>
                         <div class="container">
-                            <a ng-click="doClick('submit')" href="">
-                                Submit
-                            </a>
-                            <a href="pages/register.html">
-                                Register
-                            </a>
+                            <button type="button" ng-click="doClick('submit')" class="btn btn-login">LOGIN</button>
+                            <button type="button" ng-click="doClick('register')" class="btn btn-login">REGISTER</button>
                         </div>
                     </form>
                     
@@ -76,8 +72,9 @@
 
             <!-- MAIN BODY -->
             <main ng-click="doClick('main')" role="main" id="bg">
+
                 <div class="jumbotron vertical-center wrapper" id="search-main" style="width: 100%"> 
-					<md-content class = "md-padding">
+					<md-content>
                     <!-- UPPER LEFT LOGO -->
 	                    <div class="container">
 	                        <img class="center" src="assets/logo-white-my-travel.png" href="#" alt="main logo" style="width: 60%;">
@@ -104,15 +101,19 @@
 	                            <div class="form-group d-sm-flex" style="justify-content: space-between; margin-top: 1%;">
 	                                <div class="form-group col-md-5"  >
 	                                	<label for="departure" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Departure Airport</label>
-	                                    <!-- <input type="text" ng-model="preliminary.departureAirport" ng-required="true" id="departure" required placeholder="From" class="form-control"> -->
+	                                    <input type="text" ng-model="preliminary.departureAirport" ng-required="true" id="departure" required placeholder="From" class="form-control">
 		                             
 		                                <md-autocomplete flex required
+		                                md-input-name="autocompleteField"
 								          md-no-cache="true"
 								          md-selected-item="preliminary.departureAirport"
 								          md-search-text="searchDeparture"
 								          md-items="item in doQueryAirport(searchDeparture)"
 								          md-item-text="item.display"
-								          md-dropdown-items="7">
+								          md-escape-options="clear"
+          									md-require-match=""
+          									md-min-length="0"
+          									md-clear-button="true">
 								          <md-item-template class="">
 						                     <span md-highlight-text = "searchDeparture">{{ item.display }}</span>
 						                  </md-item-template>
@@ -120,8 +121,8 @@
 							        </div>
 	                                <div class="form-group col-md-5 ">
 	                                    <label for="arrival" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Arrival Airport</label>
-	                                    <!-- <input type="text" ng-model="preliminary.arrivalAirport" ng-required="true" id="arrival" required placeholder="To" class="form-control"> -->
-	                                    <md-autocomplete flex required
+	                                    <input type="text" ng-model="preliminary.arrivalAirport" ng-required="true" id="arrival" required placeholder="To" class="form-control">
+	                                    <!--<md-autocomplete flex required
 								          md-no-cache="true"
 								          md-selected-item="preliminary.arrivalAirport"
 								          md-search-text="searchArrival"
@@ -131,7 +132,7 @@
 								          <md-item-template class="">
 						                     <span md-highlight-text = "searchArrival">{{ item.display }}</span>
 						                  </md-item-template>
-								        </md-autocomplete>
+								        </md-autocomplete>-->
 	                                </div>
 	                                
 	                            </div>
@@ -149,7 +150,7 @@
 	                        
 	                            <div class="form-group" style="justify-content: space-between;margin-top: 1%;">
 	                                <label for="passengers" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Passengers</label>
-	                                <select name="passengers" class="form-control" ng-required="true" ng-model="preliminary.nbPassengers" id="passengers">
+	                                <select ng-init="preliminary.nbPassengers = data.nbPassengersOptions[0]" name="passengers" class="form-control" ng-required="true" ng-model="preliminary.nbPassengers" id="passengers">
 	                                	<option ng-repeat="option in data.nbPassengersOptions" ng-value="{{option}}">{{option}}</option>
 	                                </select>
 	                            </div>
