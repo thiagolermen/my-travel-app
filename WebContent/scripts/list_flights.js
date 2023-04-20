@@ -1,6 +1,5 @@
 function initVars(scope, window) {
 	scope.flights = JSON.parse(localStorage.getItem('flights'));
-	console.log(scope.flights);
 }
 function initView(scope) {
 	scope.isLoggedIn = false;
@@ -47,6 +46,11 @@ function click(button, scope, http){
 	    case "register" :
 	    	window.location.href = "pages/register.html";
 	        break;
+	    case "my-tickets" :
+        	window.location.href = "pages/list_tickets.html";
+        	break;
+        case "my-account" :
+        	break;
     }
 }
 
@@ -54,6 +58,7 @@ function click(button, scope, http){
 var app = angular.module('listFlightsApp', []);
 app.controller('listFlightsCtrl', function($scope,$http, $q, $timeout, $window) {
     initVars($scope, $window);
+    initView($scope);
     initView($scope);
     $scope.isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
     $scope.doClick=function(button) {click(button, $scope,$http);}

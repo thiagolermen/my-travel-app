@@ -109,6 +109,7 @@ public class Facade {
 	    User dbUser = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
 	                   .setParameter("email", user.getEmail())
 	                   .getSingleResult();
+	    
 	    em.persist(passenger);
 	    em.persist(ticket);
 
@@ -118,6 +119,8 @@ public class Facade {
 
 	    Reservation reservation = new Reservation(dbUser);
 	    em.persist(reservation);
+	    dbUser.getListReservation().add(reservation);
+	    em.merge(dbUser);
 
 	    dbPassenger.setFlight(dbFlight);
 	    dbPassenger.setTicket(dbTicket);
@@ -132,4 +135,23 @@ public class Facade {
 	    em.merge(dbFlight);
 	}
 
+	@GET
+	@Path("/searchticket")
+	@Produces({ "application/json" })
+	public List<Ticket> listTickets(@QueryParam("email") String email, @QueryParam("password") String password) {
+		User user = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class).setParameter("email", email).getSingleResult();
+		
+		Collection<Reservation> listReservation = user.getListReservation();
+		
+		List<Ticket> tickets = new ArrayList<>();
+		for (Reservation reservation : listReservation) {
+			Collection<Ticket> listTickets = reservation.getListTickets();
+			
+			for (Ticket ticket : listTickets) {
+				tickets.add(ticket);
+			}
+		}
+		
+		return tickets;
+	}
 }

@@ -85,4 +85,21 @@ public class User{
 		this.brithDate = brithDate;
 	}
 
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public Collection<Reservation> getListReservation() {
+		return listReservation;
+	}
+
+	public void setListReservation(Collection<Reservation> listReservation) {
+		this.listReservation = listReservation;
+	}
+	
+
 }

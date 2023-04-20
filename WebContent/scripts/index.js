@@ -101,12 +101,18 @@ function click(button, scope, http, window){
             }
 
             break;
+        case "my-tickets" :
+        	//localStorage.setItem('user', JSON.stringify(scope.user));
+        	window.location.href = "pages/list_tickets.html";
+        	break;
+        case "my-account" :
+        	break;
     }
 }
 
 var app = angular.module('homeApp', ['ngMaterial', 'ngMessages']);
 app.controller('homeCtrl', function($scope,$http, $q, $timeout, $window) {
-	localStorage.clear();
+	//localStorage.clear();
     initVars($scope);
     initView($scope);
     $http.get("rest/listairports").then(function(response) {

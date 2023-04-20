@@ -52,6 +52,7 @@ function click(button, scope, http){
                 if (response.status == 200 || response.status == 204) console.log("Success on booking flight."); 
                 else console.log("Error on booking flight..");
             });
+	    	window.location.href = "../index.html";
             break;
     }
 }
