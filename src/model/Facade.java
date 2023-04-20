@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -99,9 +100,36 @@ public class Facade {
 	
 	@POST
 	@Path("/bookflight")
-    @Consumes({ "application/json" })
-	public void bookFlight(User user) {
-		
+	@Consumes({ "application/json" })
+	public void bookFlight(Booking data) {
+		User user = data.getUser();
+		Passenger passenger = data.getPassenger();
+		Flight flight = data.getFlight();
+		Ticket ticket = data.getTicket();
+	    User dbUser = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+	                   .setParameter("email", user.getEmail())
+	                   .getSingleResult();
+	    em.persist(passenger);
+	    em.persist(ticket);
+
+	    Passenger dbPassenger = em.find(Passenger.class, passenger.getPassengerId());
+	    Ticket dbTicket = em.find(Ticket.class, ticket.getTicketId());
+	    Flight dbFlight = em.find(Flight.class, flight.getFlightId());
+
+	    Reservation reservation = new Reservation(dbUser);
+	    em.persist(reservation);
+
+	    dbPassenger.setFlight(dbFlight);
+	    dbPassenger.setTicket(dbTicket);
+	    em.merge(dbPassenger);
+
+	    dbTicket.setPassenger(dbPassenger);
+	    dbTicket.setReservation(reservation);
+	    dbTicket.setFlight(dbFlight);
+	    em.merge(dbTicket);
+
+	    dbFlight.getListPassengers().add(dbPassenger);
+	    em.merge(dbFlight);
 	}
 
 }

@@ -46,6 +46,14 @@ public class Flight {
 		this.price = price;
 	}
 	
+	public int getFlightId() {
+		return flightId;
+	}
+
+	public void setFlightId(int flightId) {
+		this.flightId = flightId;
+	}
+	
 	public Date getDepartureDate() {
 		return departureDate;
 	}
@@ -99,6 +107,14 @@ public class Flight {
 
 	public void setArrivalAirport(Airport arrivalAirport) {
 		this.arrivalAirport = arrivalAirport;
+	}
+
+	public Collection<Passenger> getListPassengers() {
+		return listPassengers;
+	}
+
+	public void setListPassengers(Collection<Passenger> listPassengers) {
+		this.listPassengers = listPassengers;
 	}
 	
 	

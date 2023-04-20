@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,15 +20,23 @@ public class Passenger {
 	
 	private String firstName;
 	private String lastName;
+	private String birthDateString;
+	private Date birthDate;
 	private String passportNumber;
 	
-	public Passenger(String firstName, String lastName, String passportNumber) {
+	public Passenger(String firstName, String lastName, String birthDateString, String passportNumber) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.passportNumber = passportNumber;
 	}
 	public Passenger() {
 		super();
+	}
+	public int getPassengerId() {
+		return passengerId;
+	}
+	public void setPassengerId(int passengerId) {
+		this.passengerId = passengerId;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -45,6 +55,30 @@ public class Passenger {
 	}
 	public void setPassportNumber(String passportNumber) {
 		this.passportNumber = passportNumber;
+	}
+	public Flight getFlight() {
+		return flight;
+	}
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
+	public Ticket getTicket() {
+		return ticket;
+	}
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
+	}
+	public String getBirthDateString() {
+		return birthDateString;
+	}
+	public void setBirthDateString(String birthDateString) {
+		this.birthDateString = birthDateString;
+	}
+	public Date getBirthDate() {
+		return birthDate;
+	}
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 	
 	

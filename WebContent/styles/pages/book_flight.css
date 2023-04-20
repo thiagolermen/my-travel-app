@@ -9,18 +9,18 @@ body, html{
 
 #body-book-flight{
     background-position: center; /* Center the image */
-    background-color: #000000;
+    background-color: var(--light);
     height: 100%;  
 }
 
-/* #header-register{
+#header-book{
     background-color: var(--primary);
     width: 100%;
     transition: background ease-out 0.2s;
-} */
+}
 
 
-#header-register.active {
+#header-book.active {
     position: fixed;
     background: var(--primary);
     box-shadow: 0 0 30px 0 rgba(116,131,151,0.8);
@@ -32,7 +32,7 @@ body, html{
 }
 
 #header .navbar-brand{
-    color: var(--light);
+    color: var(--primary);
 }
 
 #header .nav-link {
@@ -48,14 +48,14 @@ body, html{
     color: var(--grey);
 }
 
-#main-register{
+#main-book{
     width: 50%; /* Can be in percentage also. */
     height: auto;
     margin: 1% auto;
     padding: 1%;
 }
 
-.register-box {
+.book-box {
     width: 100%;
     padding: 5%;
     /* transform: translate(-50%, -50%); */
@@ -66,7 +66,7 @@ body, html{
     scale: 80%;
   }
   
-  .register-box h2 {
+  .book-box h2 {
     margin: 0 0 5px;
     padding: 0;
     color: var(--primary-dark);
@@ -76,11 +76,11 @@ body, html{
     text-transform: uppercase;
   }
   
-  .register-box .user-box {
+  .book-box .user-box {
     position: relative;
   }
   
-  .register-box .user-box input {
+  .book-box .user-box input {
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
@@ -92,7 +92,7 @@ body, html{
     outline: none;
     background: transparent;
   }
-  .register-box .user-box label {
+  .book-box .user-box label {
     position: absolute;
     top: -5px;
     left: 0;
@@ -103,15 +103,27 @@ body, html{
     transition: .5s;
   }
   
-  .register-box .user-box input:focus ~ label,
-  .register-box .user-box input:valid ~ label {
+  .book-box .user-box input:focus ~ label,
+  .book-box .user-box input:valid ~ label {
     top: -10px;
     left: 0;
-    color: var(--light);
+    color: var(--primary);
     font-size: 16px;
   }
   
-  .register-box a {
+  .book-box h2{
+	  position: relative;
+	  padding: 10px 20px;
+	  font-size: 1.2vw;
+	  text-decoration: none;
+	  text-transform: uppercase;
+	  overflow: hidden;
+	  width: auto;
+	  letter-spacing: 4px;
+	  text-align: center;
+  }
+  
+  .book-box a {
     /* position: relative; */
     display: inline-block;
     padding: 10px 20px;
@@ -128,7 +140,7 @@ body, html{
     text-align: center;
   }
   
-  .register-box a:hover {
+  .book-box a:hover {
     color: var(--light);
     background-color: var(--ternary);
     /* box-shadow: 0 0 5px var(--light),
