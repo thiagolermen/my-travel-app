@@ -1,5 +1,11 @@
 function initVars(scope) {
-	scope.user = new Object();
+	if (localStorage.getItem("user").startsWith("{")){
+		if (JSON.parse(localStorage.getItem("user")) !== null){	
+			scope.user = JSON.parse(localStorage.getItem("user"));
+		}
+	} else {
+		 scope.user = new Object();
+	}
 	scope.preliminary = new Object();
 	scope.flights = new Object();
 	scope.airports = new Object();
@@ -15,7 +21,11 @@ function initVars(scope) {
 	};
 }
 function initView(scope) {
-    scope.isLoggedIn = false;
+	if (localStorage.getItem("isLoggedIn") === null){
+		scope.isLoggedIn = false;
+	} else {
+		scope.isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
+	}
     scope.activeLoginDiv = false;
     scope.activeAlert = false;
     scope.activeLoginAlert = false;
@@ -72,13 +82,17 @@ function click(button, scope, http, window){
                 http.get("rest/loginauthentication", {params: scope.user}).then(function(response) {
                     if (response.status == 200 && !response.data) {
                     	console.log("Success on logging in.");
+                    	scope.isLoggedIn = true;
                     	localStorage.setItem('user', JSON.stringify(scope.user));
                     	localStorage.setItem('isLoggedIn', "true");
-                    } 
-                    else console.log("Error logging in.");
+                    } else {
+                    	scope.isLoggedIn = false;
+                    	console.log("Error logging in.");
+                    	localStorage.setItem('isLoggedIn', "false");
+                    }
                 });
             }
-            scope.isLoggedIn = Boolean(localStorage.getItem('isLoggedIn'));
+            scope.isLoggedIn = (localStorage.getItem('isLoggedIn') === 'true');
             scope.activeLoginDiv = !scope.isLoggedIn;
             break;
         case "register" :
@@ -102,19 +116,33 @@ function click(button, scope, http, window){
 
             break;
         case "my-tickets" :
-        	//localStorage.setItem('user', JSON.stringify(scope.user));
         	window.location.href = "pages/list_tickets.html";
+        	scope.user = JSON.parse(localStorage.getItem('user'));
+        	scope.isLoggedIn = Boolean(localStorage.getItem('isLoggedIn'));
         	break;
         case "my-account" :
+        	window.location.href = "pages/my_account.html";
+        	scope.user = JSON.parse(localStorage.getItem('user'));
+        	scope.isLoggedIn = Boolean(localStorage.getItem('isLoggedIn'));
         	break;
     }
 }
 
 var app = angular.module('homeApp', ['ngMaterial', 'ngMessages']);
 app.controller('homeCtrl', function($scope,$http, $q, $timeout, $window) {
-	//localStorage.clear();
     initVars($scope);
     initView($scope);
+    $http.get("rest/loginauthentication", {params: $scope.user}).then(function(response) {
+        if (response.status == 200 && !response.data) {
+        	$scope.isLoggedIn = true;
+        	localStorage.setItem('user', JSON.stringify($scope.user));
+        	localStorage.setItem('isLoggedIn', "true");
+        } else {
+        	$scope.isLoggedIn = false;
+        	localStorage.setItem('user', {});
+        	localStorage.setItem('isLoggedIn', "false");
+        }
+    });
     $http.get("rest/listairports").then(function(response) {
     	var result;
 		if (response.status == 200 || response.status == 204) {	

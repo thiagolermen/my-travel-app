@@ -154,4 +154,25 @@ public class Facade {
 		
 		return tickets;
 	}
+	
+	@GET
+	@Path("/myaccount")
+	@Produces({ "application/json" })
+	public User myAccount(@QueryParam("email") String email, @QueryParam("password") String password) {
+		User user = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class).setParameter("email", email).getSingleResult();
+		
+		return user;
+	}
+	
+	@POST
+	@Path("/deleteaccount")
+	@Produces({ "application/json" })
+	public void deleteAccount(User user) {
+		
+		em.find(User.class, user);
+		
+		em.getTransaction().begin();
+		em.remove(user);
+		em.getTransaction().commit();
+	}
 }

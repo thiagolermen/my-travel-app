@@ -39,17 +39,18 @@ function click(button, scope, http){
 	                else console.log("Error logging in.");
 	            });
 	        }
-	        scope.isLoggedIn = Boolean(localStorage.getItem('isLoggedIn'));
+	        scope.isLoggedIn = (localStorage.getItem('isLoggedIn') === 'true');
 	        scope.activeLoginDiv = !scope.isLoggedIn;
 	        scope.alertCreateAccount = !scope.isLoggedIn;
 	        break;
 	    case "register" :
-	    	window.location.href = "pages/register.html";
+	    	window.location.href = "../pages/register.html";
 	        break;
 	    case "my-tickets" :
-        	window.location.href = "pages/list_tickets.html";
+        	window.location.href = "../pages/list_tickets.html";
         	break;
         case "my-account" :
+        	window.location.href = "../pages/my_account.html";
         	break;
     }
 }

@@ -12,10 +12,11 @@ function click(button, scope, http){
     switch (button) {
 	    case "home" :
 	    	localStorage.setItem('user', JSON.stringify(scope.user));
-	    	localStorage.setItem('isLoggedIn', JSON.stringify(true));
+	    	localStorage.setItem('isLoggedIn', "true");
         	window.location.href = "../index.html";
         	break;
         case "my-account" :
+        	window.location.href = "../pages/my_account.html";
         	break;
     }
 }

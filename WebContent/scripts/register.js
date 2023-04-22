@@ -13,6 +13,7 @@ function click(button, scope, http){
                 if (response.status == 200 || response.status == 204) console.log("Success on registering."); 
                 else console.log("Error registering.");
             });
+            window.location.href = "../index.html";
             break;
     }
 }

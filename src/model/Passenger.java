@@ -18,11 +18,11 @@ public class Passenger {
 	@OneToOne
 	Ticket ticket;
 	
-	private String firstName;
-	private String lastName;
-	private String birthDateString;
-	private Date birthDate;
-	private String passportNumber;
+	String firstName;
+	String lastName;
+	String birthDateString;
+	Date birthDate;
+	String passportNumber;
 	
 	public Passenger(String firstName, String lastName, String birthDateString, String passportNumber) {
 		this.firstName = firstName;
