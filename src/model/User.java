@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.*;
@@ -15,17 +16,17 @@ public class User{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int userId;
 	
-	@OneToMany(fetch = FetchType.EAGER)
-	Collection<Reservation> listReservation;
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+	private Collection<Reservation> listReservation = new ArrayList<Reservation>();
 
-	String firstName;
-	String lastName;
+	private String firstName;
+	private String lastName;
 	@Column(unique=true)
-	String email;
-	String password;
-	String birthDateString;
-	Date brithDate;
-	boolean isAdmin = false;
+	private String email;
+	private String password;
+	private String birthDateString;
+	private Date brithDate;
+	private boolean isAdmin = false;
 	
 	public User(String email, String password){
 		this.email = email;

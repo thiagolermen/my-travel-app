@@ -1,7 +1,9 @@
 function initVars(scope) {
-	if (localStorage.getItem("user").startsWith("{")){
-		if (JSON.parse(localStorage.getItem("user")) !== null){	
-			scope.user = JSON.parse(localStorage.getItem("user"));
+	if(localStorage.getItem("user") != null){
+		if (localStorage.getItem("user").startsWith("{")){
+			if (JSON.parse(localStorage.getItem("user")) !== null){	
+				scope.user = JSON.parse(localStorage.getItem("user"));
+			}
 		}
 	} else {
 		 scope.user = new Object();
