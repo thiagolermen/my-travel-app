@@ -25,7 +25,7 @@ public class User{
 	private String email;
 	private String password;
 	private String birthDateString;
-	private Date brithDate;
+	private Date birthDate;
 	private boolean isAdmin = false;
 	
 	public User(String email, String password){
@@ -79,11 +79,11 @@ public class User{
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-	public Date getBrithDate() {
-		return brithDate;
+	public Date getBirthDate() {
+		return birthDate;
 	}
-	public void setBrithDate(Date brithDate) {
-		this.brithDate = brithDate;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	public int getUserId() {

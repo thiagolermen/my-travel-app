@@ -46,11 +46,25 @@ public class Facade {
 		return em.createQuery("FROM Airport", Airport.class).getResultList();
 	}
 	
+	public static String capitalizeWord(String str){  
+	    String words[]=str.split("\\s");  
+	    String capitalizeWord="";  
+	    for(String w:words){  
+	        String first=w.substring(0,1);  
+	        String afterfirst=w.substring(1);  
+	        capitalizeWord+=first.toUpperCase()+afterfirst+" ";  
+	    }  
+	    return capitalizeWord.trim();  
+	}  
+	
 	@GET
 	@Path("/searchflight")
 	@Produces({ "application/json" })
 	public List<Flight> searchFlight(@QueryParam("departureAirport") String departureAirport, @QueryParam("arrivalAirport") String arrivalAirport,  @QueryParam("departureDate") String departureDate, @QueryParam("returnDate") String returnDate) {
-//		p.setDepartureDate(Date.valueOf(p.getDepartureDateString().substring(0, 10)));
+		departureAirport = capitalizeWord(departureAirport);
+		arrivalAirport = capitalizeWord(arrivalAirport);
+
+		//		p.setDepartureDate(Date.valueOf(p.getDepartureDateString().substring(0, 10)));
 //		if (p.getArrivalDateString() != null) {			
 //			p.setArrivalDate(Date.valueOf(p.getArrivalDateString().substring(0, 10)));
 //			Date departureDate = p.getDepartureDate();
@@ -59,12 +73,12 @@ public class Facade {
 				    "SELECT f, dep, arr FROM Flight f " +
 				    "JOIN f.departureAirport dep " +
 				    "JOIN f.arrivalAirport arr " +
-				    "WHERE dep.airportIataCode = :departureAirportCode " +
-				    "AND arr.airportIataCode = :arrivalAirportCode "
+				    "WHERE dep.airportCountry = :departureAirportCountry " +
+				    "AND arr.airportCountry = :arrivalAirportCountry "
 //				    "AND FUNCTION('DATE', f.departureDate) = FUNCTION('DATE', :departureDate);"
 				    ,Object[].class)
-				    .setParameter("departureAirportCode", departureAirport)
-				    .setParameter("arrivalAirportCode", arrivalAirport)
+				    .setParameter("departureAirportCountry", departureAirport)
+				    .setParameter("arrivalAirportCountry", arrivalAirport)
 //				    .setParameter("departureDate", departureDate)
 //				    .setParameter("arrivalDate", arrivalDate)
 				    .getResultList();
@@ -94,7 +108,7 @@ public class Facade {
 	@Path("/register")
     @Consumes({ "application/json" })
 	public void register(User user) {
-		user.setBrithDate(Date.valueOf(user.getBirthDateString().substring(0, 10)));
+		user.setBirthDate(Date.valueOf(user.getBirthDateString().substring(0, 10)));
 		em.persist(user);
 	}
 	

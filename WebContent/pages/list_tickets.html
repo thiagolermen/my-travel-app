@@ -42,6 +42,7 @@
         <!-- FORM WITH LOGO + REGISTER -->
         <div class="container" style="padding: 1%;">
             <div class="me-auto" style="width: 70%;">
+            	<h2>My tickets</h2>
                 <ul ng-repeat="t in tickets" class="list-group list-group-light flight-list">
                     <li class="list-group-item d-flex flight-item">
                         <div class="row align-items-start">
@@ -67,7 +68,7 @@
                             </div>
                             <div class="col align-self-center">
                                 <div class="vstack gap-3">
-                                    <h2>Paid price: <br> € {{f.price}}</h2>
+                                    <h2>Paid price: <br> € {{t.price}}</h2>
                                 </div>
                             </div>
                     	</div>
