@@ -66,21 +66,19 @@ public class Facade {
 
 		//		p.setDepartureDate(Date.valueOf(p.getDepartureDateString().substring(0, 10)));
 //		if (p.getArrivalDateString() != null) {			
-//			p.setArrivalDate(Date.valueOf(p.getArrivalDateString().substring(0, 10)));
-//			Date departureDate = p.getDepartureDate();
-//			Date arrivalDate = p.getArrivalDate();
 			List<Object[]> query_results = em.createQuery(
 				    "SELECT f, dep, arr FROM Flight f " +
 				    "JOIN f.departureAirport dep " +
 				    "JOIN f.arrivalAirport arr " +
 				    "WHERE dep.airportCountry = :departureAirportCountry " +
 				    "AND arr.airportCountry = :arrivalAirportCountry "
-//				    "AND FUNCTION('DATE', f.departureDate) = FUNCTION('DATE', :departureDate);"
+//				    "AND FUNCTION('DATE', f.departureDate) = FUNCTION('DATE', :departureDate)" +
+//				    "AND FUNCTION('DATE', f.arrivalDate) = FUNCTION('DATE', :arrivalDate)"
 				    ,Object[].class)
 				    .setParameter("departureAirportCountry", departureAirport)
 				    .setParameter("arrivalAirportCountry", arrivalAirport)
-//				    .setParameter("departureDate", departureDate)
-//				    .setParameter("arrivalDate", arrivalDate)
+//				    .setParameter("departureDate", Date.valueOf(departureDate.substring(0, 10)))
+//				    .setParameter("arrivalDate", Date.valueOf(returnDate.substring(0, 10)))
 				    .getResultList();
 			List<Flight> query_flights = new ArrayList<>();
 			for (Object[] result : query_results) {
@@ -142,7 +140,7 @@ public class Facade {
 
 	    dbTicket.setPassenger(dbPassenger);
 	    dbTicket.setReservation(reservation);
-	    dbTicket.setFlight(dbFlight);
+	    //dbTicket.setFlight(dbFlight);
 	    em.merge(dbTicket);
 
 	    dbFlight.getListPassengers().add(dbPassenger);

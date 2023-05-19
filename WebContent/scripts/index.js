@@ -110,6 +110,7 @@ function click(button, scope, http, window){
                     	scope.flights = response.data;
                     	console.log(scope.flights);
                         localStorage.setItem('flights', JSON.stringify(scope.flights));
+                        localStorage.setItem('isOneWay', JSON.stringify(scope.preliminary.oneWay));
                         window.location.href = "pages/list_flights.html";
                     }
                     else console.log("Error on adding search information");

@@ -14,8 +14,6 @@ public class Ticket {
 	Passenger passenger;
 	@ManyToOne
 	Reservation reservation;
-	@ManyToOne
-	Flight flight;
 	
 	String seatNumber;
 	
@@ -81,14 +79,6 @@ public class Ticket {
 
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
-	}
-
-	public Flight getFlight() {
-		return flight;
-	}
-
-	public void setFlight(Flight flight) {
-		this.flight = flight;
 	}
 
 	public String getMealType() {

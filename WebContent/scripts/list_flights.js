@@ -1,5 +1,6 @@
 function initVars(scope, window) {
 	scope.flights = JSON.parse(localStorage.getItem('flights'));
+	scope.isOneWay = JSON.parse(localStorage.getItem('isOneWay'));
 }
 function initView(scope) {
 	scope.isLoggedIn = false;

@@ -72,7 +72,7 @@
         <main role="main">
         <!-- FORM WITH LOGO + REGISTER -->
         <div class="container" style="padding: 1%;">
-        <div class="container"><h2>Available flights from {}</h2></div>
+        <div class="container"><h2>Available flights: </h2></div>
             <div class="me-auto" style="width: 70%;">
 	            <div class="alert alert-primary d-flex align-items-center" ng-show="alertCreateAccount" role="alert">
 					  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
@@ -90,7 +90,7 @@
                                 <div class="vstack gap-3">
                                     <div class="row align-items-start">
                                         <h2 style="letter-spacing: 1px;">{{f.departureDate}}</h2>
-                                        <h2 style="letter-spacing: 1px;">{{f.arrivalDate}}</h2>
+                                        <h2 ng-show="!isOneWay" style="letter-spacing: 1px;">{{f.arrivalDate}}</h2>
                                         <br>
                                         <h2 style="letter-spacing: 1px; font-size: 0.7vw">{{f.aircraft.aircraftName}}</h2>
                                     </div>
@@ -99,14 +99,14 @@
                             <div class="col align-self-center">
                                 <div class="vstack gap-3">
                                     <div class="row align-items-start" style="flex-wrap: nowrap;">
-                                        <div class="col align-self-center"><h2>{{f.departureAirport.airportIataCode}}</h2></div>
+                                        <div class="col align-self-center"><h2>{{f.departureAirport.airportIataCode}}<br>({{f.departureAirport.airportCountry}})</h2></div>
                                         <div class="col align-self-center"><span class="material-symbols-outlined">arrow_right</span></div>
-                                        <div class="col align-self-center"><h2>{{f.arrivalAirport.airportIataCode}}</h2></div>
+                                        <div class="col align-self-center"><h2>{{f.arrivalAirport.airportIataCode}}<br>({{f.arrivalAirport.airportCountry}})</h2></div>
                                     </div>
-                                    <div class="row align-items-start" style="flex-wrap: nowrap;">
-                                        <div class="col align-self-center"><h2>{{f.arrivalAirport.airportIataCode}}</h2></div>
+                                    <div ng-show="!isOneWay" class="row align-items-start" style="flex-wrap: nowrap;">
+                                        <div class="col align-self-center"><h2>{{f.arrivalAirport.airportIataCode}}<br>({{f.arrivalAirport.airportCountry}})</h2></div>
                                         <div class="col align-self-center"><span class="material-symbols-outlined">arrow_right</span></div>
-                                        <div class="col align-self-center"><h2>{{f.departureAirport.airportIataCode}}</h2></div>
+                                        <div class="col align-self-center"><h2>{{f.departureAirport.airportIataCode}}<br>({{f.departureAirport.airportCountry}})</h2></div>
                                     </div>
                                 </div>
                             </div>

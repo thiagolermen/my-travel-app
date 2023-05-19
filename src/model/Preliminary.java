@@ -15,7 +15,7 @@ public class Preliminary{
 	private Date departureDate;
 	private Date arrivalDate;
 	private int nbPassengers;
-	private boolean oneWay;
+	private boolean isOneWay;
 	private int flightId;
 	
 	public Preliminary() { 
@@ -78,12 +78,12 @@ public class Preliminary{
 		this.nbPassengers = nbPassengers;
 	}
 
-	public boolean isOneWay() {
-		return oneWay;
+	public boolean getIsOneWay() {
+		return isOneWay;
 	}
 
-	public void setOneWay(boolean oneWay) {
-		this.oneWay = oneWay;
+	public void setIsOneWay(boolean isOneWay) {
+		this.isOneWay = isOneWay;
 	}
 
 	public int getFlightId() {

@@ -109,8 +109,9 @@ public class DatabaseInit {
 				Date date_initial = new Date(System.currentTimeMillis());
 				Date date_final = Date.valueOf("2023-12-15");
 				Date date = between(date_initial, date_final);
+				Date dayAfter = new Date(date.getTime()+(24*60*60*1000));
 				em.persist(new Flight(query_aircraft.get(0), query_departure_airport.get(0), query_arrival_airport.get(0), date, date, price));
-			
+				em.persist(new Flight(query_aircraft.get(0), query_arrival_airport.get(0), query_departure_airport.get(0), dayAfter, dayAfter, price));
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
