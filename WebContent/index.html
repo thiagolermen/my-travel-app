@@ -140,11 +140,11 @@
 	                            <div class="form-group d-sm-flex" style="justify-content: space-between;margin-top: 1%;" >
 	                                <div class="form-group col-md-5">
 	                                    <label for="departureDate" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Departure Date</label>
-	                                    <input type="date" ng-bind="date | date:'MM/dd/yyyy'" ng-model="preliminary.departureDateString" ng-required="true" placeholder="Depart Date" class="form-control">
+	                                    <input type="date" date='yyyy-MM-dd' ng-model="preliminary.departureDateString" min="2023-05-20" max="2023-05-31" ng-required="true" placeholder="Depart Date" class="form-control">
 	                                </div>
 	                                <div class="form-group col-md-5">
 	                                    <label for="departureDate" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08rem; font-weight: 600; color: var(--light); transform: scale(1);">Return Date</label>
-	                                    <input type="date" ng-bind="date | date:'MM/dd/yyyy'" ng-model="preliminary.arrivalDateString" ng-required="!preliminary.oneWay" ng-disabled="preliminary.oneWay" min="{{date | date:'MM/dd/yyyy'}}" max="12/25/2030" required placeholder="Return Date" class="form-control">
+	                                    <input type="date" date='yyyy-MM-dd' ng-model="preliminary.arrivalDateString" min="2023-05-20" max="2023-05-31" ng-required="!preliminary.oneWay" ng-disabled="preliminary.oneWay" min="{{date | date:'MM/dd/yyyy'}}" max="12/25/2030" required placeholder="Return Date" class="form-control">
 	                                </div>
 	                            </div>
 	                        

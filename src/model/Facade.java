@@ -1,29 +1,17 @@
 package model;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
-import javax.ejb.Startup;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -58,40 +46,85 @@ public class Facade {
 	}  
 	
 	@GET
-	@Path("/searchflight")
+	@Path("/searchdepartureflight")
 	@Produces({ "application/json" })
-	public List<Flight> searchFlight(@QueryParam("departureAirport") String departureAirport, @QueryParam("arrivalAirport") String arrivalAirport,  @QueryParam("departureDate") String departureDate, @QueryParam("returnDate") String returnDate) {
+	public List<Flight> searchDepartureFlight(@QueryParam("departureAirport") String departureAirport, @QueryParam("arrivalAirport") String arrivalAirport,  @QueryParam("departureDateString") String departureDateString, @QueryParam("arrivalDateString") String returnDateString) throws java.text.ParseException {
 		departureAirport = capitalizeWord(departureAirport);
 		arrivalAirport = capitalizeWord(arrivalAirport);
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date departureDate;
+		Date returnDate;
 
-		//		p.setDepartureDate(Date.valueOf(p.getDepartureDateString().substring(0, 10)));
-//		if (p.getArrivalDateString() != null) {			
-			List<Object[]> query_results = em.createQuery(
-				    "SELECT f, dep, arr FROM Flight f " +
-				    "JOIN f.departureAirport dep " +
-				    "JOIN f.arrivalAirport arr " +
-				    "WHERE dep.airportCountry = :departureAirportCountry " +
-				    "AND arr.airportCountry = :arrivalAirportCountry "
-//				    "AND FUNCTION('DATE', f.departureDate) = FUNCTION('DATE', :departureDate)" +
-//				    "AND FUNCTION('DATE', f.arrivalDate) = FUNCTION('DATE', :arrivalDate)"
-				    ,Object[].class)
-				    .setParameter("departureAirportCountry", departureAirport)
-				    .setParameter("arrivalAirportCountry", arrivalAirport)
-//				    .setParameter("departureDate", Date.valueOf(departureDate.substring(0, 10)))
-//				    .setParameter("arrivalDate", Date.valueOf(returnDate.substring(0, 10)))
-				    .getResultList();
-			List<Flight> query_flights = new ArrayList<>();
-			for (Object[] result : query_results) {
-			    Flight flight = (Flight) result[0];
-			    Airport depAirport = (Airport) result[1];
-			    Airport arrAirport = (Airport) result[2];
-			    flight.setDepartureAirport(depAirport);
-			    flight.setArrivalAirport(arrAirport);
-			    query_flights.add(flight);
-			}
-			return query_flights;
-		//}
-		//return null;
+		departureDate = new Date(dateFormat.parse(departureDateString.substring(0, 10)).getTime());
+		returnDate = new Date(dateFormat.parse(returnDateString.substring(0, 10)).getTime());
+
+		List<Object[]> query_results = em.createQuery(
+		        "SELECT f, dep, arr FROM Flight f " +
+		        "JOIN f.departureAirport dep " +
+		        "JOIN f.arrivalAirport arr " +
+		        "WHERE dep.airportCountry = :departureAirportCountry " +
+		        "AND arr.airportCountry = :arrivalAirportCountry " +
+		        "AND f.departureDate = :departureDate " +
+		        "AND f.arrivalDate = :arrivalDate" 
+				, Object[].class)
+		        .setParameter("departureAirportCountry", departureAirport)
+		        .setParameter("arrivalAirportCountry", arrivalAirport)
+		        .setParameter("departureDate", departureDate)
+		        .setParameter("arrivalDate", departureDate)
+		        .getResultList();
+
+		List<Flight> query_flights = new ArrayList<>();
+		for (Object[] result : query_results) {
+		    Flight flight = (Flight) result[0];
+		    Airport depAirport = (Airport) result[1];
+		    Airport arrAirport = (Airport) result[2];
+		    flight.setDepartureAirport(depAirport);
+		    flight.setArrivalAirport(arrAirport);
+		    query_flights.add(flight);
+		}
+		return query_flights;
+	}
+	
+	@GET
+	@Path("/searchreturnflight")
+	@Produces({ "application/json" })
+	public List<Flight> searchReturnFlight(@QueryParam("departureAirport") String departureAirport, @QueryParam("arrivalAirport") String arrivalAirport,  @QueryParam("departureDateString") String departureDateString, @QueryParam("arrivalDateString") String returnDateString) throws java.text.ParseException {
+		departureAirport = capitalizeWord(departureAirport);
+		arrivalAirport = capitalizeWord(arrivalAirport);
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date departureDate;
+		Date returnDate;
+
+		departureDate = new Date(dateFormat.parse(departureDateString.substring(0, 10)).getTime());
+		returnDate = new Date(dateFormat.parse(returnDateString.substring(0, 10)).getTime());
+
+		List<Object[]> query_results = em.createQuery(
+		        "SELECT f, dep, arr FROM Flight f " +
+		        "JOIN f.departureAirport dep " +
+		        "JOIN f.arrivalAirport arr " +
+		        "WHERE dep.airportCountry = :departureAirportCountry " +
+		        "AND arr.airportCountry = :arrivalAirportCountry " +
+		        "AND f.departureDate = :departureDate " +
+		        "AND f.arrivalDate = :arrivalDate" 
+				, Object[].class)
+		        .setParameter("departureAirportCountry", departureAirport)
+		        .setParameter("arrivalAirportCountry", arrivalAirport)
+		        .setParameter("departureDate", returnDate)
+		        .setParameter("arrivalDate", returnDate)
+		        .getResultList();
+
+		List<Flight> query_flights = new ArrayList<>();
+		for (Object[] result : query_results) {
+		    Flight flight = (Flight) result[0];
+		    Airport depAirport = (Airport) result[1];
+		    Airport arrAirport = (Airport) result[2];
+		    flight.setDepartureAirport(depAirport);
+		    flight.setArrivalAirport(arrAirport);
+		    query_flights.add(flight);
+		}
+		return query_flights;
 	}
 
 	@GET
@@ -114,6 +147,9 @@ public class Facade {
 	@Path("/bookflight")
 	@Consumes({ "application/json" })
 	public void bookFlight(Booking data) {
+		if (!data.isOneWay) {
+			data.getTicket().setPrice(data.getTicket().getPrice()*2);
+		}
 		User user = data.getUser();
 		Passenger passenger = data.getPassenger();
 		Flight flight = data.getFlight();

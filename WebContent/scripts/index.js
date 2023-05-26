@@ -1,4 +1,5 @@
 function initVars(scope) {
+	localStorage.setItem('flights', null);
 	if(localStorage.getItem("user") != null){
 		if (localStorage.getItem("user").startsWith("{")){
 			if (JSON.parse(localStorage.getItem("user")) !== null){	
@@ -103,15 +104,24 @@ function click(button, scope, http, window){
         case "search-flight" :
             scope.activeAlert = true;
             if(!scope.mainForm.$error.required){
-                scope.preliminary.oneWay = Boolean(scope.preliminary.oneWay)
-                http.get("rest/searchflight", {params: scope.preliminary}).then(function(response) {
+                scope.preliminary.isOneWay = Boolean(scope.preliminary.isOneWay)
+                http.get("rest/searchdepartureflight", {params: scope.preliminary}).then(function(response) {
                     if (response.status == 200 || response.status == 204) {
                     	console.log("Success on adding search information"); 
                     	scope.flights = response.data;
-                    	console.log(scope.flights);
                         localStorage.setItem('flights', JSON.stringify(scope.flights));
-                        localStorage.setItem('isOneWay', JSON.stringify(scope.preliminary.oneWay));
-                        window.location.href = "pages/list_flights.html";
+                        localStorage.setItem('isOneWay', JSON.stringify(scope.preliminary.isOneWay));
+                        if (!scope.preliminary.isOneWay){
+                        	http.get("rest/searchreturnflight", {params: scope.preliminary}).then(function(response_return) {
+                        		if (response_return.status == 200 || response_return.status == 204) {
+                        			console.log("Success on adding search information"); 
+                                	scope.returnFlights = response_return.data;
+                                	localStorage.setItem('returnFlights', JSON.stringify(scope.returnFlights));
+                                	window.location.href = "pages/list_flights.html";
+                        		}
+                        		else console.log("Error on adding search information");
+                        	});
+                        } else window.location.href = "pages/list_flights.html";
                     }
                     else console.log("Error on adding search information");
                 });

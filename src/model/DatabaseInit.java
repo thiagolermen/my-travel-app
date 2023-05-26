@@ -95,7 +95,7 @@ public class DatabaseInit {
 				// Flight data
 				String departureAirportIataCode = (String) departure.get("iataCode");
 				String arrivalAirportIataCode = (String) arrival.get("iataCode");
-				float price = (float) getRandomNumberInRange(500, 1500);
+				float price = (float) getRandomNumberInRange(200, 800);
 				
 				// Check if there's available data
 				if (aircraftIcaoCode.isEmpty() || departureAirportIataCode.isEmpty() || arrivalAirportIataCode.isEmpty()) continue;
@@ -106,11 +106,18 @@ public class DatabaseInit {
 				// If iataAirportCode doesn't exist
 				if (query_departure_airport.isEmpty() || query_arrival_airport.isEmpty()) continue;
 				
-				Date date_initial = new Date(System.currentTimeMillis());
-				Date date_final = Date.valueOf("2023-12-15");
-				Date date = between(date_initial, date_final);
+				Date startDate = new Date(System.currentTimeMillis());
+				Date endDate = Date.valueOf("2023-05-30");
+				Date date = between(startDate, endDate);
 				Date dayAfter = new Date(date.getTime()+(24*60*60*1000));
-				em.persist(new Flight(query_aircraft.get(0), query_departure_airport.get(0), query_arrival_airport.get(0), date, date, price));
+				//em.persist(new Flight(query_aircraft.get(0), query_departure_airport.get(0), query_arrival_airport.get(0), date, date, price));
+				
+				// Create the same flight every day
+				for (Date d = startDate; d.before(endDate); d = new Date(d.getTime() + (24*60*60*1000))) {
+					em.persist(new Flight(query_aircraft.get(0), query_departure_airport.get(0), query_arrival_airport.get(0), d, d, price));
+					em.persist(new Flight(query_aircraft.get(0), query_arrival_airport.get(0), query_departure_airport.get(0), d, d, price));
+				}
+				
 				em.persist(new Flight(query_aircraft.get(0), query_arrival_airport.get(0), query_departure_airport.get(0), dayAfter, dayAfter, price));
 			}
 		} catch (FileNotFoundException e) {

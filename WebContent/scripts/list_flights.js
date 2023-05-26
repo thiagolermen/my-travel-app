@@ -1,5 +1,17 @@
 function initVars(scope, window) {
 	scope.flights = JSON.parse(localStorage.getItem('flights'));
+	if(localStorage.getItem("returnFlights") != null){
+		if (JSON.parse(localStorage.getItem("returnFlights")) !== null){	
+			scope.returnFlights = JSON.parse(localStorage.getItem("returnFlights"));
+			aux = []
+			for (var i = 0; i < scope.returnFlights.length; i++) { 
+				aux.push({"departure" : scope.flights[i], "return" : scope.returnFlights[i]});
+			}
+			scope.flights = aux;
+			localStorage.setItem("returnFlights", null);
+			scope.returnFlights = null;
+		}
+	}
 	scope.isOneWay = JSON.parse(localStorage.getItem('isOneWay'));
 }
 function initView(scope) {
@@ -14,6 +26,7 @@ function book(flight, scope, http){
 	if(scope.isLoggedIn){
 		scope.user = JSON.parse(localStorage.getItem('user'));
 		localStorage.setItem('flight', JSON.stringify(flight));
+		localStorage.setItem('isOneWay', JSON.stringify(scope.isOneWay));
 		window.location.href = "book_flight.html";
 	}else{
 		scope.alertCreateAccount = true;

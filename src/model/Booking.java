@@ -6,13 +6,15 @@ public class Booking {
 	Passenger passenger;
 	Flight flight;
 	Ticket ticket;
+	boolean isOneWay;
 	
-	public Booking(User user, Passenger passenger, Flight flight, Ticket ticket) {
+	public Booking(User user, Passenger passenger, Flight flight, Ticket ticket, boolean isOneWay) {
 		super();
 		this.user = user;
 		this.passenger = passenger;
 		this.flight = flight;
 		this.ticket = ticket;
+		this.isOneWay = isOneWay;
 	}
 	public Booking() {
 		super();

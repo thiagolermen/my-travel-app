@@ -4,11 +4,16 @@ function initVars(scope, window) {
 	scope.ticket.transportFromAirport = false;
 	scope.isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
 	scope.user = JSON.parse(localStorage.getItem('user'));
+	scope.isOneWay = JSON.parse(localStorage.getItem('isOneWay'));
 	scope.flight = JSON.parse(localStorage.getItem('flight'));
 	scope.data = {mealType: ["VEGETARIAN", "VEGAN", "BEEF", "CHICKEN", "FISH", "FRUIT"]};
 	scope.extraLuggageSelected = false;
 	scope.transportFromAirportSelected = false;
-	scope.ticket.price = scope.flight.price;
+	if (scope.isOneWay) {
+		scope.ticket.price = scope.flight.price;
+	} else {
+		scope.ticket.price = scope.flight.departure.price + scope.flight.return.price;
+	}
 }
 function initView(scope) {
 	scope.isLoggedIn = false;
@@ -39,15 +44,12 @@ function click(button, scope, http){
     		}
     		break;
 	    case "book" :
-	    	console.log(scope.user)
-	    	console.log(scope.passenger)
-	    	console.log(scope.flight)
-	    	console.log(scope.ticket)
 	    	http.post("../rest/bookflight", {
 	    	    "user": scope.user,
 	    	    "passenger": scope.passenger,
 	    	    "flight": scope.flight,
-	    	    "ticket": scope.ticket
+	    	    "ticket": scope.ticket,
+	    	    "isOneWay": scope.isOneWay
 	    	    }).then(function(response) {
                 if (response.status == 200 || response.status == 204) console.log("Success on booking flight."); 
                 else console.log("Error on booking flight..");
