@@ -2,20 +2,11 @@ package model;
 
 import java.sql.Date;
 
-import javax.persistence.*;
+public class TicketDTO {
 
-@Entity
-@Table(name = "tickets")
-public class Ticket {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int ticketId;
 
-	@ManyToOne
 	Flight flight;
-	@ManyToOne
-	User user;
 	
 	String firstName;
 	
@@ -39,9 +30,12 @@ public class Ticket {
 	
 	boolean paid = true;
 	
-	public Ticket(String firstName, String lastName, String birthDateString, Date birthDate, String passportNumber,
-			String seatNumber, float price, String mealType, boolean extraLuggage, boolean transportFromAirport) {
+	public TicketDTO(int ticketId, Flight flight, String firstName, String lastName, String birthDateString,
+			Date birthDate, String passportNumber, String seatNumber, float price, String mealType,
+			boolean extraLuggage, boolean transportFromAirport, boolean paid) {
 		super();
+		this.ticketId = ticketId;
+		this.flight = flight;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDateString = birthDateString;
@@ -52,12 +46,25 @@ public class Ticket {
 		this.mealType = mealType;
 		this.extraLuggage = extraLuggage;
 		this.transportFromAirport = transportFromAirport;
+		this.paid = paid;
 	}
 
-	public Ticket() {
-		super();
+	public int getTicketId() {
+		return ticketId;
 	}
-	
+
+	public void setTicketId(int ticketId) {
+		this.ticketId = ticketId;
+	}
+
+	public Flight getFlight() {
+		return flight;
+	}
+
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -114,31 +121,6 @@ public class Ticket {
 		this.price = price;
 	}
 
-	public int getTicketId() {
-		return ticketId;
-	}
-
-	public void setTicketId(int ticketId) {
-		this.ticketId = ticketId;
-	}
-
-	public Flight getFlight() {
-		return flight;
-	}
-
-	public void setFlight(Flight flight) {
-		this.flight = flight;
-	}
-	
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public String getMealType() {
 		return mealType;
 	}
@@ -170,8 +152,6 @@ public class Ticket {
 	public void setPaid(boolean paid) {
 		this.paid = paid;
 	}
-	
-	
 	
 	
 }

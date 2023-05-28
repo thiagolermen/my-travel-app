@@ -17,7 +17,7 @@ public class User{
 	int userId;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-	private Collection<Reservation> listReservation = new ArrayList<Reservation>();
+	private Collection<Ticket> listTickets = new ArrayList<Ticket>();
 
 	private String firstName;
 	private String lastName;
@@ -94,12 +94,12 @@ public class User{
 		this.userId = userId;
 	}
 
-	public Collection<Reservation> getListReservation() {
-		return listReservation;
+	public Collection<Ticket> getListTickets() {
+		return listTickets;
 	}
 
-	public void setListReservation(Collection<Reservation> listReservation) {
-		this.listReservation = listReservation;
+	public void setListTickets(Collection<Ticket> listTickets) {
+		this.listTickets = listTickets;
 	}
 	
 

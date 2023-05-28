@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ public class Aircraft {
 	int aircraftId;
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="aircraft")
-	Collection<Flight> listFlights;
+	Collection<Flight> listFlights = new ArrayList<Flight>();
 	
 	private String aircraftName;
 	@Column(unique=true)

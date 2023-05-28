@@ -107,7 +107,7 @@ public class DatabaseInit {
 				if (query_departure_airport.isEmpty() || query_arrival_airport.isEmpty()) continue;
 				
 				Date startDate = new Date(System.currentTimeMillis());
-				Date endDate = Date.valueOf("2023-05-30");
+				Date endDate = Date.valueOf("2023-06-10");
 				Date date = between(startDate, endDate);
 				Date dayAfter = new Date(date.getTime()+(24*60*60*1000));
 				//em.persist(new Flight(query_aircraft.get(0), query_departure_airport.get(0), query_arrival_airport.get(0), date, date, price));

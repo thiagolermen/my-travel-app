@@ -48,19 +48,19 @@
                     <h2 ng-show="!isOneWay">{{flight.returnFlight.arrivalAirport.airportName}} -> {{flight.returnFlight.departureAirport.airportName}}</h2>
                     <form style="text-align: center;" name="registerForm">
                         <div class="user-box">
-                            <input type="text" ng-model="passenger.firstName" ng-required="true" required>
+                            <input type="text" ng-model="ticket.firstName" ng-required="true" required>
                             <label>First name</label>
                         </div>
                         <div class="user-box">
-                            <input type="text" ng-model="passenger.lastName" ng-required="true" required>
+                            <input type="text" ng-model="ticket.lastName" ng-required="true" required>
                             <label>Last Name</label>
                         </div>
                         <div class="user-box">
-                            <input type="date" ng-required="true" ng-model="passenger.birthDateString" min="{{date | date:'MM/dd/yyyy'}}" max="12/25/2030" required class="form-control">
+                            <input type="date" ng-required="true" ng-model="ticket.birthDateString" min="{{date | date:'MM/dd/yyyy'}}" max="12/25/2030" required class="form-control">
                             <label>Birthday date</label>
                         </div>
                         <div class="user-box">
-                            <input type="text" ng-model="passenger.passportNumber" ng-required="true" required>
+                            <input type="text" ng-model="ticket.passportNumber" ng-required="true" required>
                             <label>Passport number</label>
                         </div>
                         <div class="user-box">

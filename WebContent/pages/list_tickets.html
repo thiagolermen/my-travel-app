@@ -50,19 +50,20 @@
                                 <div class="vstack gap-3">
                                     <div class="row align-items-start">
                                         <h2 style="letter-spacing: 1px;">Ticket number: #{{t.ticketId}}</h2>
-                                        <h2 style="letter-spacing: 1px;">Departure: {{t.passenger.flight.departureDate}}</h2>
-                                        <h2 style="letter-spacing: 1px;">Departure: {{t.passenger.flight.arrivalDate}}</h2>
-                                        <h2 style="letter-spacing: 1px; font-size: 0.7vw">Aircraft: {{t.passenger.flight.aircraft.aircraftName}}</h2>
+                                        <h2 style="letter-spacing: 1px;">Departure: {{t.flight.departureDate}}</h2>
+                                        <h2 style="letter-spacing: 1px; font-size: 0.7vw">Passenger: {{t.firstName}} {{t.lastName}}</h2>
+                                        <h2 style="letter-spacing: 1px; font-size: 0.7vw">Seat: {{t.seatNumber}}</h2>
+                                        <h2 style="letter-spacing: 1px; font-size: 0.7vw">Aircraft: {{t.flight.aircraft.aircraftName}}</h2>
                                     </div>
                                 </div>
                             </div> 
                             <div class="col align-self-center">
                                 <div class="vstack gap-3">
                                     <div class="row align-items-start" style="flex-wrap: nowrap;">
-                                        <div class="col align-self-center"><h2>Departure: <br> {{t.passenger.flight.departureAirport.airportName}}</h2></div>
+                                        <div class="col align-self-center"><h2>Departure: <br> {{t.flight.departureAirport.airportName}}</h2></div>
                                     </div>
                                     <div class="row align-items-start" style="flex-wrap: nowrap;">
-                                        <div class="col align-self-center"><h2>Arrival: <br> {{t.passenger.flight.arrivalAirport.airportName}}</h2></div>
+                                        <div class="col align-self-center"><h2>Arrival: <br> {{t.flight.arrivalAirport.airportName}}</h2></div>
                                     </div>
                                 </div>
                             </div>

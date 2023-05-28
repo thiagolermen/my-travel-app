@@ -47,8 +47,6 @@ function click(button, scope, http){
 	    	if (scope.isOneWay) {
 	    		http.post("../rest/bookflightoneway", {
 		    	    "user": scope.user,
-		    	    "departurePassenger": scope.passenger,
-		    	    "returnPassenger": null,
 		    	    "departureFlight": scope.flight,
 		    	    "returnFlight": null,
 		    	    "departureTicket": scope.ticket,
@@ -60,8 +58,6 @@ function click(button, scope, http){
 	    	} else {
 	    		http.post("../rest/bookflightroundtrip", {
 		    	    "user": scope.user,
-		    	    "departurePassenger": scope.passenger,
-		    	    "returnPassenger": scope.passenger,
 		    	    "departureFlight": scope.flight.departureFlight,
 		    	    "returnFlight": scope.flight.returnFlight,
 		    	    "departureTicket": scope.ticket,
