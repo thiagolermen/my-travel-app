@@ -43,9 +43,9 @@
                     
                     <h2>BOOK FLIGHT</h2>
                     <h2 ng-show="isOneWay">{{flight.departureAirport.airportName}} -> {{flight.arrivalAirport.airportName}}</h2>
-                    <h2 ng-show="!isOneWay">{{flight.departure.departureAirport.airportName}} -> {{flight.departure.arrivalAirport.airportName}}</h2>
+                    <h2 ng-show="!isOneWay">{{flight.departureFlight.departureAirport.airportName}} -> {{flight.departureFlight.arrivalAirport.airportName}}</h2>
                     <br>
-                    <h2 ng-show="!isOneWay">{{flight.return.arrivalAirport.airportName}} -> {{flight.return.departureAirport.airportName}}</h2>
+                    <h2 ng-show="!isOneWay">{{flight.returnFlight.arrivalAirport.airportName}} -> {{flight.returnFlight.departureAirport.airportName}}</h2>
                     <form style="text-align: center;" name="registerForm">
                         <div class="user-box">
                             <input type="text" ng-model="passenger.firstName" ng-required="true" required>

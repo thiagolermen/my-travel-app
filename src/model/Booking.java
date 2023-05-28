@@ -3,18 +3,22 @@ package model;
 public class Booking {
 	
 	User user;
-	Passenger passenger;
-	Flight flight;
-	Ticket ticket;
-	boolean isOneWay;
+	Passenger departurePassenger;
+	Passenger returnPassenger;
+	Flight departureFlight;
+	Flight returnFlight;
+	Ticket departureTicket;
+	Ticket returnTicket;
 	
-	public Booking(User user, Passenger passenger, Flight flight, Ticket ticket, boolean isOneWay) {
+	public Booking(User user, Passenger departurePassenger, Passenger returnPassenger, Flight departureFlight, Flight returnFlight, Ticket departureTicket, Ticket returnTicket) {
 		super();
 		this.user = user;
-		this.passenger = passenger;
-		this.flight = flight;
-		this.ticket = ticket;
-		this.isOneWay = isOneWay;
+		this.departurePassenger = departurePassenger;
+		this.returnPassenger = returnPassenger;
+		this.departureFlight = departureFlight;
+		this.returnFlight = returnFlight;
+		this.departureTicket = departureTicket;
+		this.returnTicket = returnTicket;
 	}
 	public Booking() {
 		super();
@@ -25,26 +29,40 @@ public class Booking {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Passenger getPassenger() {
-		return passenger;
+	public Passenger getDeparturePassenger() {
+		return departurePassenger;
 	}
-	public void setPassenger(Passenger passenger) {
-		this.passenger = passenger;
+	public void setDeparturePassenger(Passenger departurePassenger) {
+		this.departurePassenger = departurePassenger;
 	}
-	public Flight getFlight() {
-		return flight;
+	public Passenger getReturnPassenger() {
+		return returnPassenger;
 	}
-	public void setFlight(Flight flight) {
-		this.flight = flight;
+	public void setReturnPassenger(Passenger returnPassenger) {
+		this.returnPassenger = returnPassenger;
 	}
-	public Ticket getTicket() {
-		return ticket;
+	public Flight getDepartureFlight() {
+		return departureFlight;
 	}
-	public void setTicket(Ticket ticket) {
-		this.ticket = ticket;
+	public void setDepartureFlight(Flight departureFlight) {
+		this.departureFlight = departureFlight;
 	}
-	
-	
-	
-	
+	public Flight getReturnFlight() {
+		return returnFlight;
+	}
+	public void setReturnFlight(Flight returnFlight) {
+		this.returnFlight = returnFlight;
+	}
+	public Ticket getDepartureTicket() {
+		return departureTicket;
+	}
+	public void setTicket(Ticket departureTicket) {
+		this.departureTicket = departureTicket;
+	}
+	public Ticket getReturnTicket() {
+		return returnTicket;
+	}
+	public void setReturnTicket(Ticket returnTicket) {
+		this.returnTicket = returnTicket;
+	}
 }

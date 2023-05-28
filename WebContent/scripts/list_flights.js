@@ -5,7 +5,7 @@ function initVars(scope, window) {
 			scope.returnFlights = JSON.parse(localStorage.getItem("returnFlights"));
 			aux = []
 			for (var i = 0; i < scope.returnFlights.length; i++) { 
-				aux.push({"departure" : scope.flights[i], "return" : scope.returnFlights[i]});
+				aux.push({"departureFlight" : scope.flights[i], "returnFlight" : scope.returnFlights[i]});
 			}
 			scope.flights = aux;
 			localStorage.setItem("returnFlights", null);

@@ -12,7 +12,7 @@ function initVars(scope, window) {
 	if (scope.isOneWay) {
 		scope.ticket.price = scope.flight.price;
 	} else {
-		scope.ticket.price = scope.flight.departure.price + scope.flight.return.price;
+		scope.ticket.price = scope.flight.departureFlight.price + scope.flight.returnFlight.price;
 	}
 }
 function initView(scope) {
@@ -44,16 +44,34 @@ function click(button, scope, http){
     		}
     		break;
 	    case "book" :
-	    	http.post("../rest/bookflight", {
-	    	    "user": scope.user,
-	    	    "passenger": scope.passenger,
-	    	    "flight": scope.flight,
-	    	    "ticket": scope.ticket,
-	    	    "isOneWay": scope.isOneWay
-	    	    }).then(function(response) {
-                if (response.status == 200 || response.status == 204) console.log("Success on booking flight."); 
-                else console.log("Error on booking flight..");
-            });
+	    	if (scope.isOneWay) {
+	    		http.post("../rest/bookflightoneway", {
+		    	    "user": scope.user,
+		    	    "departurePassenger": scope.passenger,
+		    	    "returnPassenger": null,
+		    	    "departureFlight": scope.flight,
+		    	    "returnFlight": null,
+		    	    "departureTicket": scope.ticket,
+		    	    "returnTicket": null,
+		    	    }).then(function(response) {
+	                if (response.status == 200 || response.status == 204) console.log("Success on booking flight."); 
+	                else console.log("Error on booking flight..");
+	            });
+	    	} else {
+	    		http.post("../rest/bookflightroundtrip", {
+		    	    "user": scope.user,
+		    	    "departurePassenger": scope.passenger,
+		    	    "returnPassenger": scope.passenger,
+		    	    "departureFlight": scope.flight.departureFlight,
+		    	    "returnFlight": scope.flight.returnFlight,
+		    	    "departureTicket": scope.ticket,
+		    	    "returnTicket": scope.ticket,
+		    	    }).then(function(response) {
+	                if (response.status == 200 || response.status == 204) console.log("Success on booking flight."); 
+	                else console.log("Error on booking flight..");
+	            });
+	    	}
+	    	
 	    	window.location.href = "../index.html";
             break;
     }

@@ -144,16 +144,13 @@ public class Facade {
 	}
 	
 	@POST
-	@Path("/bookflight")
+	@Path("/bookflightoneway")
 	@Consumes({ "application/json" })
-	public void bookFlight(Booking data) {
-		if (!data.isOneWay) {
-			data.getTicket().setPrice(data.getTicket().getPrice()*2);
-		}
+	public void bookFlightOneWay(Booking data) {
 		User user = data.getUser();
-		Passenger passenger = data.getPassenger();
-		Flight flight = data.getFlight();
-		Ticket ticket = data.getTicket();
+		Passenger passenger = data.getDeparturePassenger();
+		Flight flight = data.getDepartureFlight();
+		Ticket ticket = data.getDepartureTicket();
 	    User dbUser = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
 	                   .setParameter("email", user.getEmail())
 	                   .getSingleResult();
@@ -176,11 +173,71 @@ public class Facade {
 
 	    dbTicket.setPassenger(dbPassenger);
 	    dbTicket.setReservation(reservation);
-	    //dbTicket.setFlight(dbFlight);
+
 	    em.merge(dbTicket);
 
 	    dbFlight.getListPassengers().add(dbPassenger);
 	    em.merge(dbFlight);
+	}
+	
+	@POST
+	@Path("/bookflightroundtrip")
+	@Consumes({ "application/json" })
+	public void bookFlightRoundTrip(Booking data) {
+		User user = data.getUser();
+		Passenger departurePassenger = data.getDeparturePassenger();
+		Passenger returnPassenger = data.getReturnPassenger();
+		Flight departureFlight = data.getDepartureFlight();
+		Flight returnFlight = data.getReturnFlight();
+		Ticket departureTicket = data.getDepartureTicket();
+		Ticket returnTicket = data.getReturnTicket();
+		departureTicket.setPrice(departureTicket.getPrice()/2);
+		returnTicket.setPrice(returnTicket.getPrice()/2);
+	    User dbUser = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+	                   .setParameter("email", user.getEmail())
+	                   .getSingleResult();
+	    
+	    em.persist(departurePassenger);
+	    em.persist(returnPassenger);
+	    em.persist(departureTicket);
+	    em.persist(returnTicket);
+
+	    Passenger dbDeparturePassenger = em.find(Passenger.class, departurePassenger.getPassengerId());
+	    Passenger dbReturnPassenger = em.find(Passenger.class, returnPassenger.getPassengerId());
+	    
+	    Ticket dbDepartureTicket = em.find(Ticket.class, departureTicket.getTicketId());
+	    Ticket dbReturnTicket = em.find(Ticket.class, returnTicket.getTicketId());
+	    
+	    Flight dbDepartureFlight = em.find(Flight.class, departureFlight.getFlightId());
+	    Flight dbReturnFlight = em.find(Flight.class, returnFlight.getFlightId());
+
+	    Reservation reservation = new Reservation(dbUser);
+	    em.persist(reservation);
+	    
+	    Reservation dbReservation = em.find(Reservation.class, reservation.getReservationId());
+	    dbUser.getListReservation().add(dbReservation);
+	    em.merge(dbUser);
+
+	    dbDeparturePassenger.setFlight(dbDepartureFlight);
+	    dbReturnPassenger.setFlight(dbReturnFlight);
+	    
+	    dbDeparturePassenger.setTicket(dbDepartureTicket);
+	    em.merge(dbDeparturePassenger);
+	    dbReturnPassenger.setTicket(dbReturnTicket);
+	    em.merge(dbReturnPassenger);
+
+	    dbDepartureTicket.setPassenger(dbDeparturePassenger);
+	    dbReturnTicket.setPassenger(dbReturnPassenger);
+	    
+	    dbDepartureTicket.setReservation(dbReservation);
+	    em.merge(dbDepartureTicket);
+	    dbReturnTicket.setReservation(dbReservation);
+	    em.merge(dbReturnTicket);
+
+	    dbDepartureFlight.getListPassengers().add(departurePassenger);
+	    em.merge(dbDepartureFlight);
+	    dbReturnFlight.getListPassengers().add(returnPassenger);
+	    em.merge(dbReturnFlight);
 	}
 
 	@GET
