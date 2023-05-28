@@ -159,7 +159,11 @@ public class Facade {
 	    Ticket dbTicket = em.find(Ticket.class, ticket.getTicketId());
 	    Flight dbFlight = em.find(Flight.class, flight.getFlightId());
 
-	    dbUser.getListTickets().add(dbTicket);
+	    ticket.setFlight(flight);
+	    ticket.setUser(dbUser);
+	    em.merge(ticket);
+	    
+	    dbUser.getListTickets().add(ticket);
 	    em.merge(dbUser);
 	}
 	
