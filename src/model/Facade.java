@@ -225,10 +225,10 @@ public class Facade {
 	@GET
 	@Path("/myaccount")
 	@Produces({ "application/json" })
-	public User myAccount(@QueryParam("email") String email, @QueryParam("password") String password) {
+	public UserDTO myAccount(@QueryParam("email") String email, @QueryParam("password") String password) {
 		User user = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class).setParameter("email", email).getSingleResult();
 		
-		return user;
+		return new UserDTO(user.getFirstName(), user.getLastName(), user.getEmail(), user.getBirthDateString(), user.getBirthDate());
 	}
 	
 	@POST

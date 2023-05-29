@@ -22,6 +22,8 @@ public class Flight {
 	Airport departureAirport;
 	@ManyToOne
 	Airport arrivalAirport;
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="flight")
+	Collection<Passenger> listPassengers = new ArrayList<Passenger>();
 
 	private Date departureDate;
 	private Date arrivalDate;
@@ -106,4 +108,12 @@ public class Flight {
 	public void setArrivalAirport(Airport arrivalAirport) {
 		this.arrivalAirport = arrivalAirport;
 	}	
+	
+	public Collection<Passenger> getListPassengers() {
+		return listPassengers;
+	}
+
+	public void setListPassengers(Collection<Passenger> listPassengers) {
+		this.listPassengers = listPassengers;
+	}
 }

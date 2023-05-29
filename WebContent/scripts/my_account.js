@@ -46,14 +46,12 @@ var app = angular.module('myAccountApp', []);
 app.controller('myAccountCtrl', function($scope,$http, $q, $timeout, $window) {
     initVars($scope, $window);
     initView($scope);
-    console.log($scope.user)
     $scope.doClick=function(button) {click(button, $scope,$http);}
     var request = $http.get("../rest/myaccount", {params: $scope.user}).then(function(response) {
         if (response.status == 200 || response.status == 204) {
-        	console.log("Success on searching tickets."); 
+        	console.log("Success on searching account."); 
         	$scope.userBd = response.data;
-        	console.log($scope.userBd);
         }
-        else console.log("Error on searching tickets.");
+        else console.log("Error on searching account.");
     });
 });

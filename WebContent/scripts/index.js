@@ -11,7 +11,6 @@ function initVars(scope) {
 	}
 	scope.preliminary = new Object();
 	scope.flights = new Object();
-	scope.airports = new Object();
 	
 	scope.data = {
 	    nbPassengersOptions: [
@@ -32,43 +31,6 @@ function initView(scope) {
     scope.activeLoginDiv = false;
     scope.activeAlert = false;
     scope.activeLoginAlert = false;
-}
-                    
-function loadAllAirports(scope,http){
-	var result;
-	http.get("rest/listairports").then(function(response) {
-		if (response.status == 200 || response.status == 204) {	
-			result = response.data.map(function (state) {
-		        return {
-		          value: state.airportCountry.toLowerCase(),
-		          display: state.airportCountry + " (" + state.airportIataCode + ")"
-		        };
-		      });
-			localStorage.setItem('airports', JSON.stringify(result));
-		} else {
-			result = []
-			localStorage.setItem('airports', JSON.stringify(result));
-			console.log("Failed to list airports.");
-		}
-	});
-	return result;
-}
-
-function createFilterFor(query) {
-	var lowercaseQuery = query.toLowerCase();
-	
-	return function filterFn(state) {
-	  return (state.value.indexOf(lowercaseQuery) === 0);
-	};
-}
-
-function queryAirport (query, scope, q, timeout) {
-	var results = query ? scope.airports.filter(createFilterFor(query)) : scope.airports;
-	return results;
-//	console.log(results);
-//	var deferred = q.defer();
-//	timeout(function () { deferred.resolve(results); }, Math.random() * 1000, false);
-//	return deferred.promise;
 }
 
 function click(button, scope, http, window){
@@ -156,22 +118,5 @@ app.controller('homeCtrl', function($scope,$http, $q, $timeout, $window) {
         	localStorage.setItem('isLoggedIn', "false");
         }
     });
-    $http.get("rest/listairports").then(function(response) {
-    	var result;
-		if (response.status == 200 || response.status == 204) {	
-			result = response.data.map(function (state) {
-		        return {
-		          value: state.airportCountry.toLowerCase(),
-		          display: state.airportCountry + " (" + state.airportIataCode + ")"
-		        };
-		      });
-			$scope.airports = result;
-			$scope.doClick=function(button) {click(button, $scope,$http, $window);}
-		    $scope.doQueryAirport = function(query) {return queryAirport(query, $scope, $q, $timeout)}
-		} else {
-			result = []
-			localStorage.setItem('airports', JSON.stringify(result));
-			console.log("Failed to list airports.");
-		}
-	});
+    $scope.doClick=function(button) {click(button, $scope,$http, $window);}
 });
