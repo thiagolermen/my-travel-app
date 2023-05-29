@@ -57,7 +57,9 @@ public class Facade {
 		Date returnDate;
 
 		departureDate = new Date(dateFormat.parse(departureDateString.substring(0, 10)).getTime());
+		departureDate = new Date(departureDate.getTime()+(24*60*60*1000));
 		returnDate = new Date(dateFormat.parse(returnDateString.substring(0, 10)).getTime());
+		returnDate = new Date(returnDate.getTime()+(24*60*60*1000));
 
 		List<Object[]> query_results = em.createQuery(
 		        "SELECT f, dep, arr FROM Flight f " +
@@ -139,7 +141,8 @@ public class Facade {
 	@Path("/register")
     @Consumes({ "application/json" })
 	public void register(User user) {
-		user.setBirthDate(Date.valueOf(user.getBirthDateString().substring(0, 10)));
+		Date birthDate = Date.valueOf(user.getBirthDateString().substring(0, 10));		
+		user.setBirthDate(new Date(birthDate.getTime()+(24*60*60*1000)));
 		em.persist(user);
 	}
 	
