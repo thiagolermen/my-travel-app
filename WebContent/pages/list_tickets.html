@@ -9,6 +9,7 @@
 	
 	<!-- IMPORT ANGULAR JS 1.4.8-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
 
     <title>MyTravel - Flights</title> 
     
@@ -55,6 +56,7 @@
                                         <h2 style="letter-spacing: 1px; font-size: 0.7vw">Seat: {{t.seatNumber}}</h2>
                                         <h2 style="letter-spacing: 1px; font-size: 0.7vw">Aircraft: {{t.flight.aircraft.aircraftName}}</h2>
                                     </div>
+                                   
                                 </div>
                             </div> 
                             <div class="col align-self-center">
@@ -70,6 +72,7 @@
                             <div class="col align-self-center">
                                 <div class="vstack gap-3">
                                     <h2>Paid price: <br> € {{t.price}}</h2>
+                                    <a ng-click="printPdf(t)" href="">PRINT TICKET</a>
                                 </div>
                             </div>
                     	</div>
