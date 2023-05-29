@@ -109,8 +109,8 @@ public class Facade {
 		        "AND f.departureDate = :departureDate " +
 		        "AND f.arrivalDate = :arrivalDate" 
 				, Object[].class)
-		        .setParameter("departureAirportCountry", departureAirport)
-		        .setParameter("arrivalAirportCountry", arrivalAirport)
+		        .setParameter("departureAirportCountry", arrivalAirport)
+		        .setParameter("arrivalAirportCountry", departureAirport)
 		        .setParameter("departureDate", returnDate)
 		        .setParameter("arrivalDate", returnDate)
 		        .getResultList();
