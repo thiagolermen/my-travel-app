@@ -54,12 +54,9 @@ public class Facade {
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 		Date departureDate;
-		Date returnDate;
 
 		departureDate = new Date(dateFormat.parse(departureDateString.substring(0, 10)).getTime());
 		departureDate = new Date(departureDate.getTime()+(24*60*60*1000));
-		returnDate = new Date(dateFormat.parse(returnDateString.substring(0, 10)).getTime());
-		returnDate = new Date(returnDate.getTime()+(24*60*60*1000));
 
 		List<Object[]> query_results = em.createQuery(
 		        "SELECT f, dep, arr FROM Flight f " +
@@ -96,11 +93,10 @@ public class Facade {
 		arrivalAirport = capitalizeWord(arrivalAirport);
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-		Date departureDate;
 		Date returnDate;
 
-		departureDate = new Date(dateFormat.parse(departureDateString.substring(0, 10)).getTime());
 		returnDate = new Date(dateFormat.parse(returnDateString.substring(0, 10)).getTime());
+		returnDate = new Date(returnDate.getTime()+(24*60*60*1000));
 
 		List<Object[]> query_results = em.createQuery(
 		        "SELECT f, dep, arr FROM Flight f " +

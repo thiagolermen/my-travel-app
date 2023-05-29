@@ -38,7 +38,7 @@ function printPdf(ticket) {
     	    business: {},
     	    contact: {
     	        label: "Ticket issued for:",
-    	        name: ticket.firstName + ticket.lastName,
+    	        name: ticket.firstName + " " + ticket.lastName,
     	        address: "Passport: " + ticket.passportNumber,
     	        phone: "Birth date: " + ticket.birthDateString,
     	    },
@@ -64,7 +64,7 @@ function printPdf(ticket) {
     	            "€" + ticket.price
     	        ])),
     	    },
-    	    footer: {text: "The invoice is created on a computer and is valid without the signature and stamp.",},
+    	    footer: {text: "The ticket is created on a computer and is valid without the signature and stamp.",},
     	    pageEnable: true,
     	    pageLabel: "Page "
 	};  

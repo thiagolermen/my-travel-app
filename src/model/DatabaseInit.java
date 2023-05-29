@@ -109,16 +109,12 @@ public class DatabaseInit {
 				Date startDate = new Date(System.currentTimeMillis());
 				Date endDate = Date.valueOf("2023-06-03");
 				Date date = between(startDate, endDate);
-				Date dayAfter = new Date(date.getTime()+(24*60*60*1000));
-				//em.persist(new Flight(query_aircraft.get(0), query_departure_airport.get(0), query_arrival_airport.get(0), date, date, price));
-				
+
 				// Create the same flight every day
 				for (Date d = startDate; d.before(endDate); d = new Date(d.getTime() + (24*60*60*1000))) {
 					em.persist(new Flight(query_aircraft.get(0), query_departure_airport.get(0), query_arrival_airport.get(0), d, d, price));
 					em.persist(new Flight(query_aircraft.get(0), query_arrival_airport.get(0), query_departure_airport.get(0), d, d, price));
 				}
-				
-				em.persist(new Flight(query_aircraft.get(0), query_arrival_airport.get(0), query_departure_airport.get(0), dayAfter, dayAfter, price));
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
